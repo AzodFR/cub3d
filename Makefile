@@ -8,7 +8,7 @@ INCLUDES = includes/
 
 SRC = srcs/
 
-FLAGS = -Wall -Wextra -Werror -L. -lftprintf -lmlx
+FLAGS = -Wall -Wextra -Werror -L. -lftprintf -lmlx -g3 -fsanitize=address
 
 CC = gcc $(FLAGS)
 

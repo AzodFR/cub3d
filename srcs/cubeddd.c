@@ -23,7 +23,9 @@ int		key_hook(int keycode, t_all *a)
 
 int		closed(int keycode, t_all *a)
 {
-	(void)a;
+	printf("KEY: %d\n", keycode);
+	ft_exit(0,"Window closed.", &(a->p));
+	exit(0);
 	return (keycode);
 }
 
@@ -41,8 +43,6 @@ int main(int ac, char **av)
 		mlx_key_hook(all.mlx.win, key_hook, &all);
 		mlx_hook(all.mlx.win, 17, 0L, closed, &all);
 		mlx_loop(all.mlx.ptr);
-		ft_exit(0,"Window closed.", &(all.p));
 	}
-	dprintf(1,"test");
 	return (0);
 }
