@@ -1,0 +1,9 @@
+R   1920 1080
+
+SO txt/brick.xpm
+F 15,58,152
+NO txt/cobble.xpm
+WE txt/planks.xpm
+C 255,0,255
+S txt/dirt.xpm
+EA txt/nbrick.xpm
