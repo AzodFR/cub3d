@@ -1,9 +1,19 @@
-R   1920 1080
+R   500 500
 
-SO txt/brick.xpm
+SO txt/wallb.xpm
 F 15,58,152
-NO txt/cobble.xpm
-WE txt/planks.xpm
+NO txt/walle.xpm
+WE txt/wallo.xpm
 C 255,0,255
-S txt/dirt.xpm
-EA txt/nbrick.xpm
+S txt/barrel_side.xpm
+EA txt/wallv.xpm
+
+
+
+
+
+
+           111111111
+           100000001
+           111000111
+           111111111

@@ -6,7 +6,7 @@
 /*   By: thjacque <thjacque@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/14 11:48:56 by thjacque          #+#    #+#             */
-/*   Updated: 2020/12/14 16:17:47 by thjacque         ###   ########lyon.fr   */
+/*   Updated: 2020/12/15 15:02:53 by thjacque         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@ t_params	init_params(void)
 	p.text_we = NULL;
 	p.text_ea = NULL;
 	p.text_sprite = NULL;
+	p.map = ft_strdup("");
 	p.f[0] = 0;
 	p.f[1] = 0;
 	p.f[2] = 0;
@@ -32,27 +33,26 @@ t_params	init_params(void)
 	return (p);
 }
 
-void treat_line(char *line, t_params *p)
+void treat_line(char *line, t_params *p, int *n)
 {
-	if (ft_strlen(line))
-	{
-		if (line[0] == 'R')
-			set_resolution(line, p);
-		else if (!ft_strncmp(line, "NO", 2))
-			set_texture(line, p, 1);
-		else if (!ft_strncmp(line, "SO", 2))
-			set_texture(line, p, 2);
-		else if (!ft_strncmp(line, "WE", 2))
-			set_texture(line, p, 3);
-		else if (!ft_strncmp(line, "EA", 2))
-			set_texture(line, p, 4);
-		else if (!ft_strncmp(line, "S ", 2))
-			set_texture(line, p, 0);
-		else if (!ft_strncmp(line, "F ", 2))
-			set_rgb(line, p, 1, -1);
-		else if (!ft_strncmp(line, "C ", 2))
-			set_rgb(line, p, 0, -1);
-	}
+	if (*n >= 8 )
+		set_map(n, line, p);
+	else if (line[0] == 'R' && (*n += 1))
+		set_resolution(line, p);
+	else if (!ft_strncmp(line, "NO", 2) && (*n += 1))
+		set_texture(line, p, 1);
+	else if (!ft_strncmp(line, "SO", 2) && (*n += 1))
+		set_texture(line, p, 2);
+	else if (!ft_strncmp(line, "WE", 2) && (*n += 1))
+		set_texture(line, p, 3);
+	else if (!ft_strncmp(line, "EA", 2) && (*n += 1))
+		set_texture(line, p, 4);
+	else if (!ft_strncmp(line, "S ", 2) && (*n += 1))
+		set_texture(line, p, 0);
+	else if (!ft_strncmp(line, "F ", 2) && (*n += 1))
+		set_rgb(line, p, 1, -1);
+	else if (!ft_strncmp(line, "C ", 2) && (*n += 1))
+		set_rgb(line, p, 0, -1);
 	free(line);
 }
 
@@ -93,23 +93,28 @@ void	check_extension(char *file)
 		ft_exit(1, "Incorrect filename.", NULL);
 }
 
-t_params	parser(char *file)
+t_all	parser(char *file, int ret)
 {
 	t_params	p;
+	t_all		all;
 	char		*line;
-	int			ret;
 	int			fd;
+	int			n;
 
 	check_extension(file);
 	if ((fd = open(file, O_RDONLY)) < 0)
 		ft_exit(1, "Cannot open the file.", NULL);
 	p = init_params();
+	n = 0;
 	while ((ret = get_next_line(fd, &line)) > 0)
-		treat_line(line, &p);
-	treat_line(line, &p);
+		treat_line(line, &p, &n);
+	treat_line(line, &p, &n);
 	if (ret == -1)
 		ft_exit(1, "Error while reading the file.", &p);
 	close(fd);
 	check_params(&p);
-	return (p);
+	all.p = p;
+	all.map.map = ft_split(all.p.map, '\n');
+	free(all.p.map);
+	return (all);
 }
