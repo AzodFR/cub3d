@@ -6,7 +6,7 @@
 /*   By: thjacque <thjacque@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/14 11:48:56 by thjacque          #+#    #+#             */
-/*   Updated: 2020/12/15 15:02:53 by thjacque         ###   ########lyon.fr   */
+/*   Updated: 2020/12/16 15:22:11 by thjacque         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,24 +61,24 @@ void	check_params(t_params *p)
 	int fd;
 
 	if ((fd = open(p->text_no, O_RDONLY)) < 0)
-		ft_exit(1, "Cannot found the north's texture.", p);
+		ft_exit(1, "Cannot found the north's texture.", p, NULL);
 	close(fd);
 	if ((fd = open(p->text_so, O_RDONLY)) < 0)
-		ft_exit(1, "Cannot found the south's texture.", p);
+		ft_exit(1, "Cannot found the south's texture.", p, NULL);
 	close(fd);
 	if ((fd = open(p->text_we, O_RDONLY)) < 0)
-		ft_exit(1, "Cannot found the west's texture.", p);
+		ft_exit(1, "Cannot found the west's texture.", p, NULL);
 	close(fd);
 	if ((fd = open(p->text_ea, O_RDONLY)) < 0)
-		ft_exit(1, "Cannot found the south's texture.", p);
+		ft_exit(1, "Cannot found the south's texture.", p, NULL);
 	close(fd);
 	if ((fd = open(p->text_sprite, O_RDONLY)) < 0)
-		ft_exit(1, "Cannot found the sprite's texture.", p);
+		ft_exit(1, "Cannot found the sprite's texture.", p, NULL);
 	close(fd);
 	if (p->f[0] > 255 || p->f[1] > 255 || p->f[2] > 255)
-		ft_exit(1, "RGB not valid for the floor.", p);
+		ft_exit(1, "RGB not valid for the floor.", p, NULL);
 	if (p->c[0] > 255 || p->c[1] > 255 || p->c[2] > 255)
-		ft_exit(1, "RGB not valid for the ceil.", p);
+		ft_exit(1, "RGB not valid for the ceil.", p, NULL);
 }
 
 void	check_extension(char *file)
@@ -87,10 +87,10 @@ void	check_extension(char *file)
 
 	i = ft_strlen(file);
 	if (i < 4)
-		ft_exit(1, "Incorrect filename.", NULL);
+		ft_exit(1, "Incorrect filename.", NULL, NULL);
 	if(file[i - 1] != 'b' || file[i - 2] != 'u' ||
 	file[i - 3] != 'c' || file[i - 4] != '.')
-		ft_exit(1, "Incorrect filename.", NULL);
+		ft_exit(1, "Incorrect filename.", NULL, NULL);
 }
 
 t_all	parser(char *file, int ret)
@@ -103,18 +103,18 @@ t_all	parser(char *file, int ret)
 
 	check_extension(file);
 	if ((fd = open(file, O_RDONLY)) < 0)
-		ft_exit(1, "Cannot open the file.", NULL);
+		ft_exit(1, "Cannot open the file.", NULL, NULL);
 	p = init_params();
 	n = 0;
 	while ((ret = get_next_line(fd, &line)) > 0)
 		treat_line(line, &p, &n);
 	treat_line(line, &p, &n);
 	if (ret == -1)
-		ft_exit(1, "Error while reading the file.", &p);
+		ft_exit(1, "Error while reading the file.", &p, NULL);
 	close(fd);
 	check_params(&p);
 	all.p = p;
-	all.map.map = ft_split(all.p.map, '\n');
+	all.map = get_map(p);
 	free(all.p.map);
 	return (all);
 }

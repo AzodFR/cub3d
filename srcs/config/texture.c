@@ -6,7 +6,7 @@
 /*   By: thjacque <thjacque@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/14 14:03:33 by thjacque          #+#    #+#             */
-/*   Updated: 2020/12/14 15:32:49 by thjacque         ###   ########lyon.fr   */
+/*   Updated: 2020/12/16 09:57:21 by thjacque         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,11 +63,11 @@ void	set_rgb(char *line, t_params *p, int floor, int i)
 	while (ft_isdigit(rgb[++i]))
 		red = (red * 10) + (rgb[i] - '0');
 	if (rgb[i] != ',')
-		ft_exit(1, "Invalid character in RGB", p);
+		ft_exit(1, "Invalid character in RGB", p, NULL);
 	while (ft_isdigit(rgb[++i]))
 		green = (green * 10) + (rgb[i] - '0');
 	if (rgb[i] != ',')
-		ft_exit(1, "Invalid character in RGB", p);
+		ft_exit(1, "Invalid character in RGB", p, NULL);
 	while (ft_isdigit(rgb[++i]))
 		blue = (blue * 10) + (rgb[i] - '0');
 	if (floor)

@@ -6,7 +6,7 @@
 /*   By: thjacque <thjacque@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/14 11:55:36 by thjacque          #+#    #+#             */
-/*   Updated: 2020/12/15 18:01:48 by thjacque         ###   ########lyon.fr   */
+/*   Updated: 2020/12/16 16:32:46 by thjacque         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,14 +24,37 @@ void free_params(t_params *p)
 		free(p->text_ea);
 	if (p->text_sprite != NULL && ft_isprint(p->text_sprite[0]))
 		free(p->text_sprite);
-	/*if (p->map != NULL && ft_isprint(p->map[0]))
-		free(p->map);*/
 }
 
-void	ft_exit(int status, char *reason, t_params *p)
+void	free_all(t_all *a)
+{
+	int		i;
+
+	i = -1;
+	if (a->map.map != NULL && ft_isprint(a->map.map[0][0]))
+	{
+		while (a->map.map[++i])
+			free(a->map.worldmap[i]);
+		free(a->map.worldmap);
+		i = -1;
+		while (a->map.map[++i])
+			if (a->map.map[i] != NULL && ft_isprint(a->map.map[i][0]))
+				free(a->map.map[i]);
+			free(a->map.map);
+	}
+	
+}
+
+void	ft_exit(int status, char *reason, t_params *p, t_all *a)
 {
 	if (p != NULL)
 		free_params(p);
+	if (status == -1)
+		status = 0;
+	else if (a != NULL)
+		free_all(a);
+	if (status == 1)
+		ft_printf("Error\n");
 	ft_printf("PROGRAM EXITED (%d)\nREASON: %s\n", status, reason);
 	exit(status);
 }
