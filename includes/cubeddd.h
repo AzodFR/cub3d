@@ -6,7 +6,7 @@
 /*   By: thjacque <thjacque@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/14 10:10:32 by thjacque          #+#    #+#             */
-/*   Updated: 2020/12/16 17:28:18 by thjacque         ###   ########lyon.fr   */
+/*   Updated: 2020/12/17 19:16:36 by thjacque         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,8 @@
 # define A 0
 # define S 1
 # define D 2
-# define SPEED 15
+# define SHIFT 257
+# define CTRL 256
 
 typedef struct		s_params
 {
@@ -66,6 +67,7 @@ typedef struct		s_display
 	double planeX;
 	double planeY;
 	double cameraX;
+	double oldcameraX;
 	double rayDirX;
 	double rayDirY;
 	int mapX;
@@ -82,7 +84,39 @@ typedef struct		s_display
 	int lineHeight;
 	int drawStart;
 	int drawEnd;
+	double texPos;
+	int texNum;
+	int texX;
+	int texY;
+	double step;
+	double wallX;
+	double floorXWall;
+	double floorYWall;
+	double distWall;
+	double distPlayer;
+	double currentDist;
+	double currentFloorX;
+	double currentFloorY;
+	double weight;
+	int floorTexX;
+	int floorTexY;
 }					t_display;
+typedef struct		s_texture
+{
+	void	*t1;
+	int		*t1p;
+	int		i1[4];
+	void	*t2;
+	int		*t2p;
+	int		i2[4];
+	void	*t3;
+	int		*t3p;
+	int		i3[4];
+	void	*t4;
+	int		*t4p;
+	int		i4[4];
+
+}					t_texture;
 typedef struct		s_all
 {
 	struct s_params		p;
@@ -90,6 +124,16 @@ typedef struct		s_all
 	struct s_map		map;
 	struct s_img		img;
 	struct s_display	d;
+	struct s_texture	texture;
+	void				*main;
+	int					key_w;
+	int					key_a;
+	int					key_s;
+	int					key_d;
+	int					right;
+	int					left;
+	double				sprint;
+	double				crouch;
 }					t_all;
 void		ft_exit(int status, char *reason, t_params *p, t_all *a);
 void		set_resolution(char *line, t_params *p);
