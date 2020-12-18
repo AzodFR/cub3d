@@ -6,7 +6,7 @@
 /*   By: thjacque <thjacque@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/14 10:10:32 by thjacque          #+#    #+#             */
-/*   Updated: 2020/12/17 19:16:36 by thjacque         ###   ########lyon.fr   */
+/*   Updated: 2020/12/18 16:59:53 by thjacque         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 # include "mlx.h"
 # include <fcntl.h>
 # include <stdio.h>
+# include <math.h>
 # include "ft_printf.h"
 # define ESC 53
 # define LEFT 123
@@ -47,6 +48,8 @@ typedef struct		s_mlx
 typedef struct		s_map
 {
 	char		p_facing;
+	int			pos[2];
+	int			error;
 	char		**map;
 	int			**worldmap;
 }					t_map;
@@ -103,19 +106,9 @@ typedef struct		s_display
 }					t_display;
 typedef struct		s_texture
 {
-	void	*t1;
-	int		*t1p;
-	int		i1[4];
-	void	*t2;
-	int		*t2p;
-	int		i2[4];
-	void	*t3;
-	int		*t3p;
-	int		i3[4];
-	void	*t4;
-	int		*t4p;
-	int		i4[4];
-
+	void	*ptr;
+	int		*array;
+	int		info[4];
 }					t_texture;
 typedef struct		s_all
 {
@@ -124,7 +117,7 @@ typedef struct		s_all
 	struct s_map		map;
 	struct s_img		img;
 	struct s_display	d;
-	struct s_texture	texture;
+	t_texture			text[5];
 	void				*main;
 	int					key_w;
 	int					key_a;
@@ -143,4 +136,15 @@ void		set_map(int *n, char *line, t_params *p);
 void		free_line_exit(char **line, int error, char *reasons, t_params *p);
 t_map		get_map(t_params p);
 t_all		parser(char *file, int ret);
+/*
+** KEYBOARD CONTROLS
+*/
+int			key_press(int keycode,t_all *a);
+int			key_release(int keycode,t_all *a);
+
+/*
+** ENGINE
+*/
+void 	print_img(t_display *d, t_params *p, t_all *all, int *array);
+void	check_move(t_all *a);
 #endif

@@ -15,7 +15,8 @@ CC = gcc $(FLAGS)
 FILES = cubeddd.c \
 		config/cub_parser.c config/resolution.c \
 		config/texture.c config/map.c \
-		utils/exit.c
+		utils/exit.c utils/key_control.c \
+		utils/rendering.c
 
 RM = rm -f
 

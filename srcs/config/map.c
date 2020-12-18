@@ -6,7 +6,7 @@
 /*   By: thjacque <thjacque@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/15 13:47:27 by thjacque          #+#    #+#             */
-/*   Updated: 2020/12/16 16:26:10 by thjacque         ###   ########lyon.fr   */
+/*   Updated: 2020/12/18 13:35:42 by thjacque         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,24 @@ int		forward_map(int i, int *found, t_params p)
 	return (i);
 }
 
+int		is_player(char c, t_map *map, int x, int y)
+{
+	if (c == 'N' || c == 'S' || c == 'E' || c == 'W')
+	{
+		if (map->p_facing)
+			map->error = 1;
+		else
+			map->p_facing = c;
+		map->pos[0]= x + 0.5;
+		map->pos[1]= y + 0.5;
+		dprintf(1, "x: %d y: %d\n",x,y);
+		return (1);
+	}
+	if (c != '0' && c != '1' && c != '2')
+		map->error = 1;
+	return (0);
+}
+
 t_map	get_map(t_params p)
 {
 	t_map 	m;
@@ -66,6 +84,8 @@ t_map	get_map(t_params p)
 	ft_memset(p.map + i + 1, '\n', end - i);
 	m.map = ft_split(p.map, '\n');
 	i = -1;
+	m.p_facing = 0;
+	m.error = 0;
 	while (m.map[++i])
 		;
 	m.worldmap = malloc(i*sizeof(int*));
@@ -78,10 +98,7 @@ t_map	get_map(t_params p)
 		m.worldmap[i] = malloc(j*sizeof(int));
 		j = -1;
 		while (m.map[i][++j])
-		{
-			m.worldmap[i][j] = m.map[i][j] == ' ' ? -1 : m.map[i][j] - '0';
-			dprintf(1, "\n%d--%d: %d\n",i,j,m.worldmap[i][j]);
-		}
+			m.worldmap[i][j] = m.map[i][j] == ' ' ? -1 : is_player(m.map[i][j], &m, i, j) ? 0 : m.map[i][j] - '0';
 	}
 	i = -1;
 	return m;

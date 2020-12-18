@@ -6,7 +6,7 @@
 /*   By: thjacque <thjacque@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/14 11:48:56 by thjacque          #+#    #+#             */
-/*   Updated: 2020/12/16 15:22:11 by thjacque         ###   ########lyon.fr   */
+/*   Updated: 2020/12/18 13:25:28 by thjacque         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,5 +116,7 @@ t_all	parser(char *file, int ret)
 	all.p = p;
 	all.map = get_map(p);
 	free(all.p.map);
+	if (all.map.error == 1 || !all.map.p_facing)
+		ft_exit(1, "Invalid Map.", &(all.p), &all);
 	return (all);
 }
