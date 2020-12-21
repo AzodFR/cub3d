@@ -6,7 +6,7 @@
 /*   By: thjacque <thjacque@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/16 10:36:23 by thjacque          #+#    #+#             */
-/*   Updated: 2020/12/21 13:36:10 by thjacque         ###   ########lyon.fr   */
+/*   Updated: 2020/12/21 18:37:21 by thjacque         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,6 +75,8 @@ int		main(int ac, char **av)
 		all.mlx.win = mlx_new_window(all.mlx.ptr,
 					all.p.win_x, all.p.win_y, av[1]);
 		all = init_key(all);
+		if (ac == 3 && !ft_strncmp(av[2],"--save", 6))
+			take_screenshot(all);
 		mlx_hook(all.mlx.win, 02, 1L << 0, key_press, &all);
 		mlx_hook(all.mlx.win, 03, 1L << 1, key_release, &all);
 		mlx_hook(all.mlx.win, 17, 1L << 0, closed, &all);

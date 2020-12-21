@@ -16,10 +16,10 @@ FILES = cubeddd.c \
 		config/cub_parser.c config/resolution.c \
 		config/texture.c config/map.c \
 		config/check_map.c \
-		utils/exit.c utils/key_control.c \
-		utils/rendering.c utils/drawer.c \
-		utils/move_player.c utils/move_camera.c \
-		utils/initer.c
+		engine/controls/key_control.c \
+		engine/render/rendering.c engine/render/drawer.c \
+		engine/controls/move_player.c engine/controls/move_camera.c \
+		utils/initer.c utils/exit.c utils/save.c
 
 RM = rm -f
 
@@ -41,7 +41,7 @@ all: $(NAME)
 
 main: all
 	@clear
-	@./$(NAME) map.cub
+	@./$(NAME) map.cub --save
 
 clean:
 	@make clean -C libftprintf/

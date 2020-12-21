@@ -6,7 +6,7 @@
 /*   By: thjacque <thjacque@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/18 16:43:14 by thjacque          #+#    #+#             */
-/*   Updated: 2020/12/21 13:18:25 by thjacque         ###   ########lyon.fr   */
+/*   Updated: 2020/12/21 15:51:59 by thjacque         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,4 +77,8 @@ void	check_move(t_all *a)
 		turn_right(a);
 	if (a->key.s)
 		move_back(a);
+	if (a->key.d)
+		move_right(a);
+	if (a->key.a)
+		move_left(a);
 }

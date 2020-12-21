@@ -6,7 +6,7 @@
 /*   By: thjacque <thjacque@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/14 14:03:33 by thjacque          #+#    #+#             */
-/*   Updated: 2020/12/21 12:12:45 by thjacque         ###   ########lyon.fr   */
+/*   Updated: 2020/12/21 15:06:35 by thjacque         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,20 +15,28 @@
 void	set_texture(char *line, t_params *p, int face)
 {
 	char	*path;
+	char	*tmp;
 
 	line[0] = ' ';
 	line[1] = ' ';
-	path = ft_strtrim(line, " ");
-	if (face == 0)
+	tmp = ft_strtrim(line, " ");
+	path = ft_strtrim(tmp, "\t");
+	free(tmp);
+	if (face == 0 && !p->text_sprite)
 		p->text_sprite = ft_strdup(path);
-	if (face == 1)
+	else if (face == 1 && !p->text_no)
 		p->text_no = ft_strdup(path);
-	if (face == 2)
+	else if (face == 2 && !p->text_so)
 		p->text_so = ft_strdup(path);
-	if (face == 3)
+	else if (face == 3 && !p->text_we)
 		p->text_we = ft_strdup(path);
-	if (face == 4)
+	else if (face == 4 && !p->text_ea)
 		p->text_ea = ft_strdup(path);
+	else
+	{
+		free(path);
+		ft_exit(1, "Duplicate texture section", p, NULL);
+	}
 	free(path);
 }
 

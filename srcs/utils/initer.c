@@ -6,7 +6,7 @@
 /*   By: thjacque <thjacque@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/21 11:54:20 by thjacque          #+#    #+#             */
-/*   Updated: 2020/12/21 13:28:15 by thjacque         ###   ########lyon.fr   */
+/*   Updated: 2020/12/21 17:05:19 by thjacque         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,8 +72,8 @@ t_display		init_display(t_map map)
 	double		oldir_x;
 	double		oldplane;
 
-	d.pos_x = map.pos[0];
-	d.pos_y = map.pos[1];
+	d.pos_x = map.pos[0] + 0.1;
+	d.pos_y = map.pos[1] + 0.1;
 	rota = 0;
 	if (map.p_facing == 'W')
 		rota = -1.57;

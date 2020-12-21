@@ -6,7 +6,7 @@
 /*   By: thjacque <thjacque@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/21 13:39:34 by thjacque          #+#    #+#             */
-/*   Updated: 2020/12/21 14:45:20 by thjacque         ###   ########lyon.fr   */
+/*   Updated: 2020/12/21 17:35:02 by thjacque         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,10 +68,11 @@ void	check_map(t_map map, t_params *p)
 		j = 0;
 		while (map.map[i][j] != '0' && map.map[i][j])
 			j++;
-		while (map.map[i][j] == '0' && map.map[i][j])
+		while (map.map[i][j])
 		{
-			if (!check_zero(map, i, j++, high))
+			if (map.map[i][j] == '0' && !check_zero(map, i, j, high))
 				ft_exit(1, "Invalid Map.", p, NULL);
+			j++;
 		}
 	}
 }

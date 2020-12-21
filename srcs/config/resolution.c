@@ -6,7 +6,7 @@
 /*   By: thjacque <thjacque@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/14 12:04:03 by thjacque          #+#    #+#             */
-/*   Updated: 2020/12/21 12:09:17 by thjacque         ###   ########lyon.fr   */
+/*   Updated: 2020/12/21 17:54:04 by thjacque         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,8 @@ void	set_resolution(char *line, t_params *p)
 	int		i;
 
 	i = 1;
+	if (p->win_x > 0 || p->win_y > 0)
+		ft_exit(1, "Duplicate resolution section.", p, NULL);
 	while ((line[i] >= 9 && line[i] <= 13) || line[i] == ' ')
 		i++;
 	while (ft_isdigit(line[i]))
@@ -29,4 +31,12 @@ void	set_resolution(char *line, t_params *p)
 		p->win_y = (p->win_y * 10) + (line[i++] - '0');
 	if (ft_isalpha(line[i]))
 		ft_exit(1, "Invalid character in resolution section.", p, NULL);
+	if (p->win_x > 2560)
+		p->win_x = 2560;
+	if (p->win_x == 0)
+		p->win_x = 320;
+	if (p->win_y > 1440)
+		p->win_y = 1440;
+	if (p->win_y == 0)
+		p->win_y = 320;
 }
