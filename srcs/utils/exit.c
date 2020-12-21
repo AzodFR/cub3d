@@ -6,13 +6,19 @@
 /*   By: thjacque <thjacque@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/14 11:55:36 by thjacque          #+#    #+#             */
-/*   Updated: 2020/12/18 12:53:46 by thjacque         ###   ########lyon.fr   */
+/*   Updated: 2020/12/21 13:13:14 by thjacque         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cubeddd.h"
 
-void free_params(t_params *p)
+void	free_line_exit(char **line, int error, char *reasons, t_params *p)
+{
+	free(*line);
+	ft_exit(error, reasons, p, NULL);
+}
+
+void	free_params(t_params *p)
 {
 	if (p->text_no != NULL && ft_isprint(p->text_no[0]))
 		free(p->text_no);
@@ -34,23 +40,14 @@ void	free_all(t_all *a)
 	if (a->map.map != NULL && ft_isprint(a->map.map[0][0]))
 	{
 		while (a->map.map[++i])
-		{
 			free(a->map.worldmap[i]);
-			dprintf(1,"Array of Int Map[%d] have been freed\n",i);
-		}
 		free(a->map.worldmap);
-		dprintf(1,"Int Map have been freed\n");
 		i = -1;
 		while (a->map.map[++i])
 			if (a->map.map[i] != NULL && ft_isprint(a->map.map[i][0]))
-			{
-				dprintf(1,"Array of Char ** Map[%d] have been freed\n",i);
 				free(a->map.map[i]);
-			}
-			free(a->map.map);
-			dprintf(1,"Char ** Map have been freed\n");
+		free(a->map.map);
 	}
-	
 }
 
 void	ft_exit(int status, char *reason, t_params *p, t_all *a)

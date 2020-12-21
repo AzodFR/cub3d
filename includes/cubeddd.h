@@ -6,7 +6,7 @@
 /*   By: thjacque <thjacque@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/14 10:10:32 by thjacque          #+#    #+#             */
-/*   Updated: 2020/12/18 16:59:53 by thjacque         ###   ########lyon.fr   */
+/*   Updated: 2020/12/21 14:03:22 by thjacque         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,51 +58,39 @@ typedef struct		s_img
 	void		*img;
 	int			x;
 	int			y;
-	int			posx;
-	int			posy;
+	int			pos_x;
+	int			pos_y;
 }					t_img;
 typedef struct		s_display
 {
-	double posX;
-	double posY;
-	double dirX;
-	double dirY;
-	double planeX;
-	double planeY;
-	double cameraX;
-	double oldcameraX;
-	double rayDirX;
-	double rayDirY;
-	int mapX;
-	int mapY;
-	double sideDistX;
-	double sideDistY;
-	double deltaDistX;
-	double deltaDistY;
-	double perpWallDist;
+	double pos_x;
+	double pos_y;
+	double dir_x;
+	double dir_y;
+	double plane_x;
+	double plane_y;
+	double camera_x;
+	double raydir_x;
+	double raydir_y;
+	int map_x;
+	int map_y;
+	double sidedist_x;
+	double sidedist_y;
+	double deltadist_x;
+	double deltadist_y;
+	double perpwall_dist;
 	int hit;
-	int stepX;
-	int stepY;
+	int step_x;
+	int step_y;
 	int side;
-	int lineHeight;
-	int drawStart;
-	int drawEnd;
-	double texPos;
-	int texNum;
-	int texX;
-	int texY;
+	int lineheight;
+	int draw_start;
+	int draw_end;
+	double tex_pos;
+	int tex_x;
+	int tex_y;
 	double step;
-	double wallX;
-	double floorXWall;
-	double floorYWall;
-	double distWall;
-	double distPlayer;
-	double currentDist;
-	double currentFloorX;
-	double currentFloorY;
-	double weight;
-	int floorTexX;
-	int floorTexY;
+	double wall_x;
 }					t_display;
 typedef struct		s_texture
 {
@@ -110,6 +98,15 @@ typedef struct		s_texture
 	int		*array;
 	int		info[4];
 }					t_texture;
+typedef struct		s_key
+{
+	int		w;
+	int		a;
+	int		s;
+	int		d;
+	int		right;
+	int		left;
+}					t_key;
 typedef struct		s_all
 {
 	struct s_params		p;
@@ -117,14 +114,9 @@ typedef struct		s_all
 	struct s_map		map;
 	struct s_img		img;
 	struct s_display	d;
+	struct s_key		key;
 	t_texture			text[5];
 	void				*main;
-	int					key_w;
-	int					key_a;
-	int					key_s;
-	int					key_d;
-	int					right;
-	int					left;
 	double				sprint;
 	double				crouch;
 }					t_all;
@@ -136,15 +128,30 @@ void		set_map(int *n, char *line, t_params *p);
 void		free_line_exit(char **line, int error, char *reasons, t_params *p);
 t_map		get_map(t_params p);
 t_all		parser(char *file, int ret);
+void		check_map(t_map map, t_params *p);
+/*
+** INITER
+*/
+void		init_variables(t_display *d, t_params *p, int x);
+t_all		init_texture(t_params p, t_all a);
+t_all		init_key(t_all all);
+t_display	init_display(t_map map);
 /*
 ** KEYBOARD CONTROLS
 */
 int			key_press(int keycode,t_all *a);
 int			key_release(int keycode,t_all *a);
+void		check_move(t_all *a);
+void		move_forward(t_all *a);
+void		move_back(t_all *a);
+void		turn_right(t_all *a);
+void		turn_left(t_all *a);
 
 /*
 ** ENGINE
 */
+void	print_ceil(int *array, t_display *d, t_params *p, int x);
+void	print_floor(int *array, t_display *d, t_params *p, int x);
+void	print_wall(int *array, t_all *all, int x, int or);
 void 	print_img(t_display *d, t_params *p, t_all *all, int *array);
-void	check_move(t_all *a);
 #endif

@@ -6,7 +6,7 @@
 /*   By: thjacque <thjacque@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/14 14:03:33 by thjacque          #+#    #+#             */
-/*   Updated: 2020/12/16 09:57:21 by thjacque         ###   ########lyon.fr   */
+/*   Updated: 2020/12/21 12:12:45 by thjacque         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,23 +29,21 @@ void	set_texture(char *line, t_params *p, int face)
 		p->text_we = ft_strdup(path);
 	if (face == 4)
 		p->text_ea = ft_strdup(path);
-	free (path);
+	free(path);
 }
 
-void	set_rgb_array(int red, int green, int blue, t_params *p, int floor)
+void	set_floor_rgb(int red, int green, int blue, t_params *p)
 {
-	if (floor)
-	{
-		p->f[0] = red;
-		p->f[1] = green;
-		p->f[2] = blue;
-	}
-	else
-	{
-		p->c[0] = red;
-		p->c[1] = green;
-		p->c[2] = blue;
-	}
+	p->f[0] = red;
+	p->f[1] = green;
+	p->f[2] = blue;
+}
+
+void	set_ceil_rgb(int red, int green, int blue, t_params *p)
+{
+	p->c[0] = red;
+	p->c[1] = green;
+	p->c[2] = blue;
 }
 
 void	set_rgb(char *line, t_params *p, int floor, int i)
@@ -71,8 +69,8 @@ void	set_rgb(char *line, t_params *p, int floor, int i)
 	while (ft_isdigit(rgb[++i]))
 		blue = (blue * 10) + (rgb[i] - '0');
 	if (floor)
-		set_rgb_array(red, green, blue, p, 1);
+		set_floor_rgb(red, green, blue, p);
 	else
-		set_rgb_array(red, green, blue, p, 0);
-	free (rgb);
+		set_ceil_rgb(red, green, blue, p);
+	free(rgb);
 }

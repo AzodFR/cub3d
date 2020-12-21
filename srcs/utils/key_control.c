@@ -6,63 +6,57 @@
 /*   By: thjacque <thjacque@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/18 16:43:14 by thjacque          #+#    #+#             */
-/*   Updated: 2020/12/18 16:44:01 by thjacque         ###   ########lyon.fr   */
+/*   Updated: 2020/12/21 13:18:25 by thjacque         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cubeddd.h"
 
-int key_press(int keycode,t_all *a)
+int		key_press(int keycode, t_all *a)
 {
 	if (keycode == 53)
-		ft_exit(0,"Window closed.", &(a->p), a);
+		ft_exit(0, "Window closed.", &(a->p), a);
 	else if (keycode == W)
-		a->key_w = 1;
+		a->key.w = 1;
 	else if (keycode == A)
-		a->key_a = 1;
+		a->key.a = 1;
 	else if (keycode == S)
-		a->key_s = 1;
+		a->key.s = 1;
 	else if (keycode == D)
-		a->key_d = 1;
+		a->key.d = 1;
 	else if (keycode == RIGHT)
-		a->right = 1;
+		a->key.right = 1;
 	else if (keycode == LEFT)
-		a->left = 1;
-	else if (keycode == SHIFT)
+		a->key.left = 1;
+	else if (keycode == SHIFT && !a->crouch)
+		a->sprint = 0.1;
+	else if (keycode == CTRL && !a->sprint)
 	{
-		if(!a->crouch)
-			a->sprint = 0.1;
-	}
-	else if (keycode == CTRL)
-	{
-		if (!a->sprint)
-		{
-			a->sprint = -0.1;
-			a->crouch = 100;
-		}
+		a->sprint = -0.1;
+		a->crouch = 100;
 	}
 	return (keycode);
 }
 
-int key_release(int keycode,t_all *a)
+int		key_release(int keycode, t_all *a)
 {
 	t_display *d;
 
 	d = &(a->d);
 	if (keycode == 53)
-		ft_exit(0,"Window closed.", &(a->p), a);
+		ft_exit(0, "Window closed.", &(a->p), a);
 	else if (keycode == W)
-		a->key_w = 0;
+		a->key.w = 0;
 	else if (keycode == A)
-		a->key_a = 0;
+		a->key.a = 0;
 	else if (keycode == S)
-		a->key_s = 0;
+		a->key.s = 0;
 	else if (keycode == D)
-		a->key_d = 0;
+		a->key.d = 0;
 	else if (keycode == RIGHT)
-		a->right = 0;
+		a->key.right = 0;
 	else if (keycode == LEFT)
-		a->left = 0;
+		a->key.left = 0;
 	else if (keycode == SHIFT)
 		a->sprint = 0;
 	else if (keycode == CTRL)
@@ -71,4 +65,16 @@ int key_release(int keycode,t_all *a)
 		a->crouch = 0;
 	}
 	return (keycode);
+}
+
+void	check_move(t_all *a)
+{
+	if (a->key.w)
+		move_forward(a);
+	if (a->key.left)
+		turn_left(a);
+	if (a->key.right)
+		turn_right(a);
+	if (a->key.s)
+		move_back(a);
 }

@@ -6,7 +6,7 @@
 /*   By: thjacque <thjacque@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/14 11:48:56 by thjacque          #+#    #+#             */
-/*   Updated: 2020/12/18 13:25:28 by thjacque         ###   ########lyon.fr   */
+/*   Updated: 2020/12/21 13:09:35 by thjacque         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,9 +33,9 @@ t_params	init_params(void)
 	return (p);
 }
 
-void treat_line(char *line, t_params *p, int *n)
+void		treat_line(char *line, t_params *p, int *n)
 {
-	if (*n >= 8 )
+	if (*n >= 8)
 		set_map(n, line, p);
 	else if (line[0] == 'R' && (*n += 1))
 		set_resolution(line, p);
@@ -56,7 +56,7 @@ void treat_line(char *line, t_params *p, int *n)
 	free(line);
 }
 
-void	check_params(t_params *p)
+void		check_params(t_params *p)
 {
 	int fd;
 
@@ -81,19 +81,19 @@ void	check_params(t_params *p)
 		ft_exit(1, "RGB not valid for the ceil.", p, NULL);
 }
 
-void	check_extension(char *file)
+void		check_extension(char *file)
 {
 	int		i;
 
 	i = ft_strlen(file);
 	if (i < 4)
 		ft_exit(1, "Incorrect filename.", NULL, NULL);
-	if(file[i - 1] != 'b' || file[i - 2] != 'u' ||
+	if (file[i - 1] != 'b' || file[i - 2] != 'u' ||
 	file[i - 3] != 'c' || file[i - 4] != '.')
 		ft_exit(1, "Incorrect filename.", NULL, NULL);
 }
 
-t_all	parser(char *file, int ret)
+t_all		parser(char *file, int ret)
 {
 	t_params	p;
 	t_all		all;
