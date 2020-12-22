@@ -6,7 +6,7 @@
 /*   By: thjacque <thjacque@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/21 11:54:20 by thjacque          #+#    #+#             */
-/*   Updated: 2020/12/22 18:28:02 by thjacque         ###   ########lyon.fr   */
+/*   Updated: 2020/12/22 19:13:49 by thjacque         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ t_all			init_key(t_all all)
 	all.key.left = 0;
 	all.sprint = 0;
 	all.crouch = 0;
-	all.life = 4;
+	all.life = 3;
 	return (all);
 }
 

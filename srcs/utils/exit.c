@@ -6,7 +6,7 @@
 /*   By: thjacque <thjacque@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/14 11:55:36 by thjacque          #+#    #+#             */
-/*   Updated: 2020/12/22 14:35:30 by thjacque         ###   ########lyon.fr   */
+/*   Updated: 2020/12/22 19:04:01 by thjacque         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,8 @@ void	free_all(t_all *a)
 				free(a->map.map[i]);
 		free(a->map.map);
 	}
+	if (a->map.nbsprite)
+		free(a->map.sprite);
 }
 
 void	ft_exit(int status, char *reason, t_params *p, t_all *a)

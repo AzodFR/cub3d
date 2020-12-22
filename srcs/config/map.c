@@ -6,7 +6,7 @@
 /*   By: thjacque <thjacque@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/15 13:47:27 by thjacque          #+#    #+#             */
-/*   Updated: 2020/12/22 17:58:19 by thjacque         ###   ########lyon.fr   */
+/*   Updated: 2020/12/22 19:13:25 by thjacque         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,7 +104,8 @@ t_map		get_map(t_params p)
 	if (p.map[i] != '1')
 		ft_exit(1, "Invalid Map.", &p, NULL);
 	ft_memset(p.map + i + 1, '\n', end - i);
-	m.map = ft_split(p.map, '\n');
+	if (!(m.map = ft_split(p.map, '\n')))
+		ft_exit(1, "Malloc error.", &p, NULL);
 	m.p_facing = 0;
 	m.error = 0;
 	m = map_to_int(m, -1, &p);

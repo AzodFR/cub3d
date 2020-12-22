@@ -6,7 +6,7 @@
 /*   By: thjacque <thjacque@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/21 13:39:34 by thjacque          #+#    #+#             */
-/*   Updated: 2020/12/22 16:59:11 by thjacque         ###   ########lyon.fr   */
+/*   Updated: 2020/12/22 19:13:32 by thjacque         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,8 @@ t_map	check_map(t_map map, t_params *p)
 
 	map = get_high(map, &high);
 	high--;
-	map.sprite = malloc(map.nbsprite * sizeof(t_sprite));
+	if (!(map.sprite = malloc(map.nbsprite * sizeof(t_sprite))))
+		ft_exit(1, "Malloc error.", p, NULL);
 	i = -1;
 	map.nbsprite = 0;
 	while (map.map[++i])
