@@ -6,7 +6,7 @@
 /*   By: thjacque <thjacque@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/14 10:10:32 by thjacque          #+#    #+#             */
-/*   Updated: 2020/12/22 15:28:14 by thjacque         ###   ########lyon.fr   */
+/*   Updated: 2020/12/22 18:54:02 by thjacque         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,6 +101,9 @@ typedef struct		s_display
 	int				drawend_x;
 	int				stripe;
 	int				y;
+	int				sprite_tex_x;
+	int				sprite_tex_y;
+	double			sprite_color;
 }					t_display;
 typedef struct		s_texture
 {
@@ -145,6 +148,7 @@ typedef struct		s_all
 	void			*main;
 	double			sprint;
 	double			crouch;
+	int				life;
 }					t_all;
 void				ft_exit(int status, char *reason, t_params *p, t_all *a);
 void				set_resolution(char *line, t_params *p);
@@ -159,11 +163,16 @@ t_map				check_map(t_map map, t_params *p);
 ** UTILS
 */
 void				take_screenshot(t_all a);
+char				*get_path(int i, t_params p);
+int					is_wall(int i);
+void				check_trap(t_all *a);
+int					lx(int life);
 /*
 ** INITER
 */
+t_map				treat_sprite(t_map map, int i, int j);
 void				init_variables(t_display *d, t_params *p, int x);
-t_all				init_texture(t_params p, t_all a);
+t_all				init_texture(t_params p, t_all a, int i);
 t_all				init_key(t_all all);
 t_display			init_display(t_map map);
 /*
@@ -186,5 +195,8 @@ void				print_ceil(int *array, t_display *d, t_params *p, int x);
 void				print_floor(int *array, t_display *d, t_params *p, int x);
 void				print_wall(int *array, t_all *all, int x, int or);
 void				print_img(t_display *d, t_params *p, t_all *a, int *ar);
-void	print_sprite(int *array, t_all *all, t_display *d);
+int					get_type(t_all *all, t_display *d, int i);
+void				check_start_end(t_all *all, t_display *d);
+void				print_sprite(int *array, t_all *all, t_display *d);
+void				draw_sprite(t_all *all, t_display *d, int type, int *array);
 #endif

@@ -6,11 +6,23 @@
 /*   By: thjacque <thjacque@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/14 12:04:03 by thjacque          #+#    #+#             */
-/*   Updated: 2020/12/21 17:54:04 by thjacque         ###   ########lyon.fr   */
+/*   Updated: 2020/12/22 18:52:01 by thjacque         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cubeddd.h"
+
+void	clear_resolution(t_params *p)
+{
+	if (p->win_x > 2560)
+		p->win_x = 2560;
+	if (p->win_x == 0)
+		p->win_x = 320;
+	if (p->win_y > 1440)
+		p->win_y = 1440;
+	if (p->win_y == 0)
+		p->win_y = 320;
+}
 
 void	set_resolution(char *line, t_params *p)
 {
@@ -31,12 +43,5 @@ void	set_resolution(char *line, t_params *p)
 		p->win_y = (p->win_y * 10) + (line[i++] - '0');
 	if (ft_isalpha(line[i]))
 		ft_exit(1, "Invalid character in resolution section.", p, NULL);
-	if (p->win_x > 2560)
-		p->win_x = 2560;
-	if (p->win_x == 0)
-		p->win_x = 320;
-	if (p->win_y > 1440)
-		p->win_y = 1440;
-	if (p->win_y == 0)
-		p->win_y = 320;
+	clear_resolution(p);
 }

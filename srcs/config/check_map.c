@@ -6,7 +6,7 @@
 /*   By: thjacque <thjacque@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/21 13:39:34 by thjacque          #+#    #+#             */
-/*   Updated: 2020/12/22 15:38:01 by thjacque         ###   ########lyon.fr   */
+/*   Updated: 2020/12/22 16:59:11 by thjacque         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,18 +52,29 @@ int		check_zero(t_map m, int i, int j, int high)
 	return (1);
 }
 
+t_map	get_high(t_map map, int *j)
+{
+	int	high;
+	int	i;
+
+	high = -1;
+	i = -1;
+	map.nbsprite = 0;
+	while (map.map[++high] && (i = -1))
+		while (map.map[high][++i])
+			if (map.map[high][i] == '2' || map.map[high][i] == '3')
+				map.nbsprite += 1;
+	*j = high;
+	return (map);
+}
+
 t_map	check_map(t_map map, t_params *p)
 {
 	int		i;
 	int		j;
 	int		high;
 
-	high = -1;
-	map.nbsprite = 0;
-	while (map.map[++high] && (i = -1))
-		while (map.map[high][++i])
-			if (map.map[high][i] == '2' || map.map[high][i] == '3')
-				map.nbsprite += 1;
+	map = get_high(map, &high);
 	high--;
 	map.sprite = malloc(map.nbsprite * sizeof(t_sprite));
 	i = -1;
@@ -78,12 +89,7 @@ t_map	check_map(t_map map, t_params *p)
 			if (map.map[i][j] == '0' && !check_zero(map, i, j, high))
 				ft_exit(1, "Invalid Map.", p, NULL);
 			else if (map.map[i][j] == '2' || map.map[i][j] == '3')
-			{
-				map.sprite[map.nbsprite].x = i;
-				map.sprite[map.nbsprite].y = j;
-				map.sprite[map.nbsprite].type = map.map[i][j] - '0' - 1;
-				map.nbsprite += 1;
-			}
+				map = treat_sprite(map, i, j);
 			j++;
 		}
 	}

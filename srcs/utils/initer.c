@@ -6,7 +6,7 @@
 /*   By: thjacque <thjacque@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/21 11:54:20 by thjacque          #+#    #+#             */
-/*   Updated: 2020/12/22 15:27:31 by thjacque         ###   ########lyon.fr   */
+/*   Updated: 2020/12/22 18:28:02 by thjacque         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,28 +24,16 @@ void			init_variables(t_display *d, t_params *p, int x)
 	d->hit = 0;
 }
 
-t_all			init_texture(t_params p, t_all a)
+t_all			init_texture(t_params p, t_all a, int i)
 {
 	t_texture		t;
-	int				i;
 	int				w;
 	int				h;
 	int				sizeline;
 
-	i = -1;
 	while (++i < 6)
 	{
-		t.ptr = mlx_xpm_file_to_image(a.mlx.ptr, p.text_no, &w, &h);
-		if (i == 1)
-			t.ptr = mlx_xpm_file_to_image(a.mlx.ptr, p.text_so, &w, &h);
-		else if (i == 2)
-			t.ptr = mlx_xpm_file_to_image(a.mlx.ptr, p.text_ea, &w, &h);
-		else if (i == 3)
-			t.ptr = mlx_xpm_file_to_image(a.mlx.ptr, p.text_we, &w, &h);
-		else if (i == 4)
-			t.ptr = mlx_xpm_file_to_image(a.mlx.ptr, p.text_sprite1, &w, &h);
-		else if (i == 5)
-			t.ptr = mlx_xpm_file_to_image(a.mlx.ptr, p.text_sprite2, &w, &h);
+		t.ptr = mlx_xpm_file_to_image(a.mlx.ptr, get_path(i, p), &w, &h);
 		t.info[1] = w;
 		t.info[2] = h;
 		t.array = (int *)mlx_get_data_addr(t.ptr, &w, &sizeline, &h);
@@ -66,6 +54,7 @@ t_all			init_key(t_all all)
 	all.key.left = 0;
 	all.sprint = 0;
 	all.crouch = 0;
+	all.life = 4;
 	return (all);
 }
 
@@ -76,8 +65,8 @@ t_display		init_display(t_map map)
 	double		oldir_x;
 	double		oldplane;
 
-	d.pos_x = map.pos[0] + 0.1;
-	d.pos_y = map.pos[1] + 0.1;
+	d.pos_x = map.pos[0] + 0.5;
+	d.pos_y = map.pos[1] + 0.5;
 	rota = 0;
 	if (map.p_facing == 'W')
 		rota = -1.57;

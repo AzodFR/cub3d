@@ -6,7 +6,7 @@
 /*   By: thjacque <thjacque@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/16 10:36:23 by thjacque          #+#    #+#             */
-/*   Updated: 2020/12/22 15:25:43 by thjacque         ###   ########lyon.fr   */
+/*   Updated: 2020/12/22 18:53:38 by thjacque         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,18 +49,19 @@ int		closed(t_all *a)
 
 int		gameloop(t_all *all)
 {
-	int	*array;
-	int v;
-	void *img;
-	int w;
-	int h;
-	
+	int		*array;
+	int		v;
+	void	*img;
+	int		w;
+	int		h;
+
 	all->main = mlx_new_image(all->mlx.ptr, all->p.win_x, all->p.win_y);
 	array = (int *)mlx_get_data_addr(all->main, &v, &v, &v);
 	check_move(all);
+	check_trap(all);
 	print_img(&(all->d), &(all->p), all, array);
-	img = mlx_xpm_file_to_image (all->mlx.ptr, "txt/wolf/406.xpm", &w, &h);
-	mlx_put_image_to_window (all->mlx.ptr, all->mlx.win, img, (all->p.win_x - w)/2, (all->p.win_y - h));
+	img = mlx_xpm_file_to_image(all->mlx.ptr, "txt/heart.xpm", &w, &h);
+	mlx_put_image_to_window(all->mlx.ptr, all->mlx.win, img, lx(all->life), 0);
 	mlx_destroy_image(all->mlx.ptr, all->main);
 	mlx_destroy_image(all->mlx.ptr, img);
 	return (1);
@@ -78,12 +79,10 @@ int		main(int ac, char **av)
 		debug(all.p, all.map);
 		all.d = init_display(all.map);
 		all.mlx.ptr = mlx_init();
-		all = init_texture(all.p, all);
+		all = init_texture(all.p, all, -1);
 		all.mlx.win = mlx_new_window(all.mlx.ptr,
 					all.p.win_x, all.p.win_y, av[1]);
 		all = init_key(all);
-		if (ac == 3 && !ft_strncmp(av[2],"--save", 6))
-			take_screenshot(all);
 		mlx_hook(all.mlx.win, 02, 1L << 0, key_press, &all);
 		mlx_hook(all.mlx.win, 03, 1L << 1, key_release, &all);
 		mlx_hook(all.mlx.win, 17, 1L << 0, closed, &all);

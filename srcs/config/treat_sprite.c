@@ -1,23 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   save.c                                             :+:      :+:    :+:   */
+/*   treat_sprite.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: thjacque <thjacque@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/12/21 18:37:29 by thjacque          #+#    #+#             */
-/*   Updated: 2020/12/22 17:03:32 by thjacque         ###   ########lyon.fr   */
+/*   Created: 2020/12/22 16:58:55 by thjacque          #+#    #+#             */
+/*   Updated: 2020/12/22 17:00:33 by thjacque         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cubeddd.h"
 
-void	take_screenshot(t_all a)
+t_map	treat_sprite(t_map map, int i, int j)
 {
-	int		fd;
-
-	(void)a;
-	fd = open("save.bmp", O_WRONLY | O_CREAT | O_TRUNC, 0644);
-	write(fd, "BM", 54);
-	close(fd);
+	map.sprite[map.nbsprite].x = i;
+	map.sprite[map.nbsprite].y = j;
+	map.sprite[map.nbsprite].type = map.map[i][j] - '0' - 1;
+	map.nbsprite += 1;
+	return (map);
 }

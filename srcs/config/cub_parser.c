@@ -6,7 +6,7 @@
 /*   By: thjacque <thjacque@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/14 11:48:56 by thjacque          #+#    #+#             */
-/*   Updated: 2020/12/22 15:31:52 by thjacque         ###   ########lyon.fr   */
+/*   Updated: 2020/12/22 16:47:36 by thjacque         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ void		treat_line(char *line, t_params *p, int *n)
 void		check_params(t_params *p)
 {
 	int fd;
-	dprintf(1, "no: %s\nso: %s\nwe: %s\nea: %s\ns1: %s\ns2: %s\n\n\n\n",p->text_no,p->text_so,p->text_we,p->text_ea,p->text_sprite1,p->text_sprite2);
+
 	if ((fd = open(p->text_no, O_RDONLY)) < 0)
 		ft_exit(1, "Cannot found the north's texture.", p, NULL);
 	close(fd);

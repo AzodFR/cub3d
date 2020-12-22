@@ -6,11 +6,17 @@
 /*   By: thjacque <thjacque@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/14 14:03:33 by thjacque          #+#    #+#             */
-/*   Updated: 2020/12/22 14:37:15 by thjacque         ###   ########lyon.fr   */
+/*   Updated: 2020/12/22 17:00:40 by thjacque         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cubeddd.h"
+
+void	free_exit(char *s, t_params *p, char *text)
+{
+	free(s);
+	ft_exit(1, text, p, NULL);
+}
 
 void	set_texture(char *line, t_params *p, int face)
 {
@@ -35,10 +41,7 @@ void	set_texture(char *line, t_params *p, int face)
 	else if (face == 4 && !p->text_ea)
 		p->text_ea = ft_strdup(path);
 	else
-	{
-		free(path);
-		ft_exit(1, "Duplicate texture section", p, NULL);
-	}
+		free_exit(path, p, "Duplicate texture section");
 	free(path);
 }
 

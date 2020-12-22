@@ -6,7 +6,7 @@
 /*   By: thjacque <thjacque@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/18 16:57:09 by thjacque          #+#    #+#             */
-/*   Updated: 2020/12/22 12:37:58 by thjacque         ###   ########lyon.fr   */
+/*   Updated: 2020/12/22 17:36:13 by thjacque         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ int		hit(t_display *d, int **worldmap, int or)
 			or = d->raydir_y > 0 ? 2 : 3;
 			d->side = 1;
 		}
-		if (worldmap[d->map_x][d->map_y] == 1)
+		if (is_wall(worldmap[d->map_x][d->map_y]))
 			d->hit = 1;
 	}
 	if (d->side == 0)
