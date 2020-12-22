@@ -6,7 +6,7 @@
 /*   By: thjacque <thjacque@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/15 13:47:27 by thjacque          #+#    #+#             */
-/*   Updated: 2020/12/21 17:02:04 by thjacque         ###   ########lyon.fr   */
+/*   Updated: 2020/12/22 15:33:27 by thjacque         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ int			is_player(char c, t_map *map, int x, int y)
 		map->pos[1] = y;
 		return (1);
 	}
-	if (c != '0' && c != '1' && c != '2')
+	if (c != '0' && c != '1' && c != '2' && c != '3')
 		map->error = 1;
 	return (0);
 }
@@ -108,6 +108,6 @@ t_map		get_map(t_params p)
 	m.p_facing = 0;
 	m.error = 0;
 	m = map_to_int(m, -1, &p);
-	check_map(m, &p);
+	m = check_map(m, &p);
 	return (m);
 }

@@ -6,7 +6,7 @@
 /*   By: thjacque <thjacque@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/18 16:57:09 by thjacque          #+#    #+#             */
-/*   Updated: 2020/12/21 17:23:27 by thjacque         ###   ########lyon.fr   */
+/*   Updated: 2020/12/22 12:37:58 by thjacque         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ int		hit(t_display *d, int **worldmap, int or)
 			or = d->raydir_y > 0 ? 2 : 3;
 			d->side = 1;
 		}
-		if (worldmap[d->map_x][d->map_y] > 0)
+		if (worldmap[d->map_x][d->map_y] == 1)
 			d->hit = 1;
 	}
 	if (d->side == 0)
@@ -110,7 +110,9 @@ void	print_img(t_display *d, t_params *p, t_all *all, int *array)
 		print_ceil(array, d, p, x);
 		print_wall(array, all, x, or);
 		print_floor(array, d, p, x);
+		d->zbuff[x] = d->perpwall_dist;
 		x++;
 	}
+	print_sprite(array, all, d);
 	mlx_put_image_to_window(all->mlx.ptr, all->mlx.win, all->main, 0, 0);
 }

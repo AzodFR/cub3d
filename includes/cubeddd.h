@@ -6,7 +6,7 @@
 /*   By: thjacque <thjacque@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/14 10:10:32 by thjacque          #+#    #+#             */
-/*   Updated: 2020/12/21 18:42:27 by thjacque         ###   ########lyon.fr   */
+/*   Updated: 2020/12/22 15:28:14 by thjacque         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,8 @@ typedef struct		s_params
 	char			*text_so;
 	char			*text_we;
 	char			*text_ea;
-	char			*text_sprite;
+	char			*text_sprite1;
+	char			*text_sprite2;
 	char			*map;
 	int				f[3];
 	int				c[3];
@@ -47,14 +48,6 @@ typedef struct		s_mlx
 	void			*ptr;
 	void			*win;
 }					t_mlx;
-typedef struct		s_map
-{
-	char			p_facing;
-	int				pos[2];
-	int				error;
-	char			**map;
-	int				**worldmap;
-}					t_map;
 typedef struct		s_img
 {
 	void			*img;
@@ -93,6 +86,21 @@ typedef struct		s_display
 	int				tex_y;
 	double			step;
 	double			wall_x;
+	double			zbuff[3660];
+	double			invdet;
+	double			transform_x;
+	double			transform_y;
+	double			spritex;
+	double			spritey;
+	int				spritescreen_x;
+	int				spriteheight;
+	int				drawstart_y;
+	int				drawend_y;
+	int				spritewidth;
+	int				drawstart_x;
+	int				drawend_x;
+	int				stripe;
+	int				y;
 }					t_display;
 typedef struct		s_texture
 {
@@ -109,6 +117,22 @@ typedef struct		s_key
 	int				right;
 	int				left;
 }					t_key;
+typedef struct		s_sprite
+{
+	int				x;
+	int				y;
+	int				type;
+}					t_sprite;
+typedef struct		s_map
+{
+	char			p_facing;
+	int				pos[2];
+	int				error;
+	char			**map;
+	int				**worldmap;
+	t_sprite		*sprite;
+	int				nbsprite;
+}					t_map;
 typedef struct		s_all
 {
 	t_params		p;
@@ -117,7 +141,7 @@ typedef struct		s_all
 	t_img			img;
 	t_display		d;
 	t_key			key;
-	t_texture		text[5];
+	t_texture		text[7];
 	void			*main;
 	double			sprint;
 	double			crouch;
@@ -130,7 +154,7 @@ void				set_map(int *n, char *line, t_params *p);
 void				free_line_exit(char **l, int er, char *r, t_params *p);
 t_map				get_map(t_params p);
 t_all				parser(char *file, int ret);
-void				check_map(t_map map, t_params *p);
+t_map				check_map(t_map map, t_params *p);
 /*
 ** UTILS
 */
@@ -162,4 +186,5 @@ void				print_ceil(int *array, t_display *d, t_params *p, int x);
 void				print_floor(int *array, t_display *d, t_params *p, int x);
 void				print_wall(int *array, t_all *all, int x, int or);
 void				print_img(t_display *d, t_params *p, t_all *a, int *ar);
+void	print_sprite(int *array, t_all *all, t_display *d);
 #endif

@@ -6,7 +6,7 @@
 /*   By: thjacque <thjacque@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/21 11:54:20 by thjacque          #+#    #+#             */
-/*   Updated: 2020/12/21 17:05:19 by thjacque         ###   ########lyon.fr   */
+/*   Updated: 2020/12/22 15:27:31 by thjacque         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ t_all			init_texture(t_params p, t_all a)
 	int				sizeline;
 
 	i = -1;
-	while (++i < 4)
+	while (++i < 6)
 	{
 		t.ptr = mlx_xpm_file_to_image(a.mlx.ptr, p.text_no, &w, &h);
 		if (i == 1)
@@ -42,6 +42,10 @@ t_all			init_texture(t_params p, t_all a)
 			t.ptr = mlx_xpm_file_to_image(a.mlx.ptr, p.text_ea, &w, &h);
 		else if (i == 3)
 			t.ptr = mlx_xpm_file_to_image(a.mlx.ptr, p.text_we, &w, &h);
+		else if (i == 4)
+			t.ptr = mlx_xpm_file_to_image(a.mlx.ptr, p.text_sprite1, &w, &h);
+		else if (i == 5)
+			t.ptr = mlx_xpm_file_to_image(a.mlx.ptr, p.text_sprite2, &w, &h);
 		t.info[1] = w;
 		t.info[2] = h;
 		t.array = (int *)mlx_get_data_addr(t.ptr, &w, &sizeline, &h);

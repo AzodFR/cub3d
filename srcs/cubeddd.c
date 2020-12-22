@@ -6,7 +6,7 @@
 /*   By: thjacque <thjacque@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/16 10:36:23 by thjacque          #+#    #+#             */
-/*   Updated: 2020/12/21 18:37:21 by thjacque         ###   ########lyon.fr   */
+/*   Updated: 2020/12/22 15:25:43 by thjacque         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,8 @@ void	debug(t_params p, t_map m)
 	dprintf(1, "SO |%s|\n", p.text_so);
 	dprintf(1, "WE |%s|\n", p.text_we);
 	dprintf(1, "EA |%s|\n", p.text_ea);
-	dprintf(1, "SPRITE |%s|\n", p.text_sprite);
+	dprintf(1, "SPRITE1 |%s|\n", p.text_sprite1);
+	dprintf(1, "SPRITE2 |%s|\n", p.text_sprite2);
 	dprintf(1, "Floor |%d - %d - %d|\n", p.f[0], p.f[1], p.f[2]);
 	dprintf(1, "Ceil |%d - %d - %d|\n", p.c[0], p.c[1], p.c[2]);
 	dprintf(1, "Map:\n");
@@ -50,12 +51,18 @@ int		gameloop(t_all *all)
 {
 	int	*array;
 	int v;
-
+	void *img;
+	int w;
+	int h;
+	
 	all->main = mlx_new_image(all->mlx.ptr, all->p.win_x, all->p.win_y);
 	array = (int *)mlx_get_data_addr(all->main, &v, &v, &v);
 	check_move(all);
 	print_img(&(all->d), &(all->p), all, array);
+	img = mlx_xpm_file_to_image (all->mlx.ptr, "txt/wolf/406.xpm", &w, &h);
+	mlx_put_image_to_window (all->mlx.ptr, all->mlx.win, img, (all->p.win_x - w)/2, (all->p.win_y - h));
 	mlx_destroy_image(all->mlx.ptr, all->main);
+	mlx_destroy_image(all->mlx.ptr, img);
 	return (1);
 }
 
