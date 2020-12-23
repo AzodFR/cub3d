@@ -4,8 +4,8 @@ F 102,51,0
 NO txt/wolf/storm.xpm
 WE txt/wolf/wpgreen.xpm
 C 10,10,10
-S1 txt/coeur.xpm
-S2 txt/wolf/pique.xpm
+S1 txt/sprite.xpm
+S2 txt/spikes.xpm
 EA txt/wolf/wpgreen.xpm
 
 
