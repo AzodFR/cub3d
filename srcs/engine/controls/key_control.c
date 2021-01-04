@@ -6,7 +6,7 @@
 /*   By: thjacque <thjacque@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/18 16:43:14 by thjacque          #+#    #+#             */
-/*   Updated: 2020/12/21 15:51:59 by thjacque         ###   ########lyon.fr   */
+/*   Updated: 2021/01/04 15:06:01 by thjacque         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,9 +40,6 @@ int		key_press(int keycode, t_all *a)
 
 int		key_release(int keycode, t_all *a)
 {
-	t_display *d;
-
-	d = &(a->d);
 	if (keycode == 53)
 		ft_exit(0, "Window closed.", &(a->p), a);
 	else if (keycode == W)
@@ -64,6 +61,8 @@ int		key_release(int keycode, t_all *a)
 		a->sprint = 0;
 		a->crouch = 0;
 	}
+	if (keycode == HUD)
+		a->key.hud = !a->key.hud;
 	return (keycode);
 }
 

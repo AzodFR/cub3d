@@ -6,7 +6,7 @@
 /*   By: thjacque <thjacque@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/21 11:54:20 by thjacque          #+#    #+#             */
-/*   Updated: 2020/12/22 19:13:49 by thjacque         ###   ########lyon.fr   */
+/*   Updated: 2021/01/04 15:15:09 by thjacque         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,7 @@ t_all			init_texture(t_params p, t_all a, int i)
 		t.info[3] = w;
 		a.text[i] = t;
 	}
+	a.life_txt = mlx_xpm_file_to_image(a.mlx.ptr, "txt/heart.xpm", &w, &h);
 	return (a);
 }
 
@@ -50,6 +51,7 @@ t_all			init_key(t_all all)
 	all.key.a = 0;
 	all.key.s = 0;
 	all.key.d = 0;
+	all.key.hud = 0;
 	all.key.right = 0;
 	all.key.left = 0;
 	all.sprint = 0;
@@ -85,4 +87,13 @@ t_display		init_display(t_map map)
 	d.plane_x = d.plane_x * cos(-rota) - d.plane_y * sin(-rota);
 	d.plane_y = oldplane * sin(-rota) + d.plane_y * cos(-rota);
 	return (d);
+}
+
+t_all			init_all(t_all all)
+{
+	all.d = init_display(all.map);
+	all.mlx.ptr = mlx_init();
+	all = init_texture(all.p, all, -1);
+	all = init_key(all);
+	return (all);
 }

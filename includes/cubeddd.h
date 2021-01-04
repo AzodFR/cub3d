@@ -6,7 +6,7 @@
 /*   By: thjacque <thjacque@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/14 10:10:32 by thjacque          #+#    #+#             */
-/*   Updated: 2020/12/22 18:54:02 by thjacque         ###   ########lyon.fr   */
+/*   Updated: 2021/01/04 15:10:16 by thjacque         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@
 # define CTRL 256
 # define SPEED 0.13
 # define SENSIVITY 50
+# define HUD 4
 
 typedef struct		s_params
 {
@@ -42,6 +43,7 @@ typedef struct		s_params
 	char			*map;
 	int				f[3];
 	int				c[3];
+	int				screen;
 }					t_params;
 typedef struct		s_mlx
 {
@@ -117,6 +119,7 @@ typedef struct		s_key
 	int				a;
 	int				s;
 	int				d;
+	int				hud;
 	int				right;
 	int				left;
 }					t_key;
@@ -136,6 +139,20 @@ typedef struct		s_map
 	t_sprite		*sprite;
 	int				nbsprite;
 }					t_map;
+typedef struct		s_bmp
+{
+	char		header[54];
+	int			fd;
+	int			w;
+	int			height;
+	int			bytes_number;
+	int			width_bytes;
+	int			image_s;
+	int			bytes_s;
+	int			file_s;
+	int			header_s;
+	int			biplanes;
+}					t_bmp;
 typedef struct		s_all
 {
 	t_params		p;
@@ -145,7 +162,9 @@ typedef struct		s_all
 	t_display		d;
 	t_key			key;
 	t_texture		text[7];
+	t_bmp			*bmp;
 	void			*main;
+	void			*life_txt;
 	double			sprint;
 	double			crouch;
 	int				life;
@@ -162,11 +181,12 @@ t_map				check_map(t_map map, t_params *p);
 /*
 ** UTILS
 */
-void				take_screenshot(t_all a);
+void				ft_init_bmp(t_all *a, int width, int height, int *array);
 char				*get_path(int i, t_params p);
 int					is_wall(int i);
 void				check_trap(t_all *a);
 int					lx(int life);
+t_sprite			*sort_sprite(t_sprite *sprite, int max, t_all *all);
 /*
 ** INITER
 */
@@ -175,6 +195,7 @@ void				init_variables(t_display *d, t_params *p, int x);
 t_all				init_texture(t_params p, t_all a, int i);
 t_all				init_key(t_all all);
 t_display			init_display(t_map map);
+t_all				init_all(t_all all);
 /*
 ** KEYBOARD CONTROLS
 */
@@ -199,4 +220,5 @@ int					get_type(t_all *all, t_display *d, int i);
 void				check_start_end(t_all *all, t_display *d);
 void				print_sprite(int *array, t_all *all, t_display *d);
 void				draw_sprite(t_all *all, t_display *d, int type, int *array);
+void				print_life(int	*array, t_all *all, int x);
 #endif

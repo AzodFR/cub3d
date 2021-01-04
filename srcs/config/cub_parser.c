@@ -6,7 +6,7 @@
 /*   By: thjacque <thjacque@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/14 11:48:56 by thjacque          #+#    #+#             */
-/*   Updated: 2020/12/22 16:47:36 by thjacque         ###   ########lyon.fr   */
+/*   Updated: 2021/01/04 11:52:08 by thjacque         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,7 @@ t_params	init_params(void)
 	p.c[0] = 0;
 	p.c[1] = 0;
 	p.c[2] = 0;
+	p.screen = 0;
 	return (p);
 }
 

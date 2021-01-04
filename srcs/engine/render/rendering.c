@@ -6,7 +6,7 @@
 /*   By: thjacque <thjacque@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/18 16:57:09 by thjacque          #+#    #+#             */
-/*   Updated: 2020/12/22 17:36:13 by thjacque         ###   ########lyon.fr   */
+/*   Updated: 2021/01/04 15:07:36 by thjacque         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,6 +113,8 @@ void	print_img(t_display *d, t_params *p, t_all *all, int *array)
 		d->zbuff[x] = d->perpwall_dist;
 		x++;
 	}
+	all->map.sprite = sort_sprite(all->map.sprite, all->map.nbsprite, all);
 	print_sprite(array, all, d);
-	mlx_put_image_to_window(all->mlx.ptr, all->mlx.win, all->main, 0, 0);
+	if (all->p.screen == 1)
+		ft_init_bmp(all, all->p.win_x, all->p.win_y, array);
 }

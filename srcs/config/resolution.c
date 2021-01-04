@@ -6,7 +6,7 @@
 /*   By: thjacque <thjacque@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/14 12:04:03 by thjacque          #+#    #+#             */
-/*   Updated: 2020/12/22 18:52:01 by thjacque         ###   ########lyon.fr   */
+/*   Updated: 2021/01/04 14:12:04 by thjacque         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,11 +16,11 @@ void	clear_resolution(t_params *p)
 {
 	if (p->win_x > 2560)
 		p->win_x = 2560;
-	if (p->win_x == 0)
+	if (p->win_x < 320)
 		p->win_x = 320;
 	if (p->win_y > 1440)
 		p->win_y = 1440;
-	if (p->win_y == 0)
+	if (p->win_y < 320)
 		p->win_y = 320;
 }
 

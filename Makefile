@@ -20,7 +20,8 @@ FILES = cubeddd.c \
 		engine/render/rendering.c engine/render/drawer.c \
 		engine/controls/move_player.c engine/controls/move_camera.c \
 		engine/render/sprite_init.c engine/player_manager.c \
-		utils/initer.c utils/exit.c utils/save.c utils/paths.c
+		utils/initer.c utils/exit.c utils/save.c utils/paths.c \
+		utils/sort_sprite.c
 
 RM = rm -f
 
@@ -40,9 +41,13 @@ $(LIBFT):
 
 all: $(NAME)
 
-main: all
+save: all
 	@clear
 	@./$(NAME) map.cub --save
+
+main: all
+	@clear
+	@./$(NAME) map.cub
 
 clean:
 	@make clean -C libftprintf/
