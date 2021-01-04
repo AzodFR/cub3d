@@ -6,7 +6,7 @@
 /*   By: thjacque <thjacque@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/18 16:57:09 by thjacque          #+#    #+#             */
-/*   Updated: 2021/01/04 15:07:36 by thjacque         ###   ########lyon.fr   */
+/*   Updated: 2021/01/04 18:53:26 by thjacque         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,12 +65,12 @@ int		hit(t_display *d, int **worldmap, int or)
 	return (or);
 }
 
-void	define_startend(t_display *d, t_params *p, t_all *all)
+void	define_startend(t_display *d, t_params *p)
 {
-	d->draw_start = (-d->lineheight / 2 + p->win_y / 2) - all->crouch;
+	d->draw_start = (-d->lineheight / 2 + p->win_y / 2) + d-> pitch + (d->pos_z / d->perpwall_dist);
 	if (d->draw_start < 0)
 		d->draw_start = 0;
-	d->draw_end = (d->lineheight / 2 + p->win_y / 2) - all->crouch;
+	d->draw_end = (d->lineheight / 2 + p->win_y / 2) + d-> pitch + (d->pos_z / d->perpwall_dist);
 	if (d->draw_end >= p->win_y)
 		d->draw_end = p->win_y - 1;
 	if (d->side == 0)
@@ -87,7 +87,7 @@ void	get_texture(t_display *d, t_params *p, t_all *all, int or)
 	if (d->side == 1 && d->raydir_y < 0)
 		d->tex_x = all->text[or].info[1] - d->tex_x - 1;
 	d->step = 1.0 * all->text[or].info[2] / d->lineheight;
-	d->tex_pos = (d->draw_start - p->win_y / 2 + d->lineheight / 2) * d->step;
+	d->tex_pos = (d->draw_start - d-> pitch - (d->pos_z / d->perpwall_dist) - p->win_y / 2 + d->lineheight / 2) * d->step;
 }
 
 void	print_img(t_display *d, t_params *p, t_all *all, int *array)
@@ -104,7 +104,7 @@ void	print_img(t_display *d, t_params *p, t_all *all, int *array)
 		step(d);
 		or = hit(d, worldmap, or);
 		d->lineheight = (int)(p->win_y / d->perpwall_dist);
-		define_startend(d, p, all);
+		define_startend(d, p);
 		d->wall_x -= floor((d->wall_x));
 		get_texture(d, p, all, or);
 		print_ceil(array, d, p, x);

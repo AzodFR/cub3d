@@ -6,7 +6,7 @@
 /*   By: thjacque <thjacque@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/21 13:39:34 by thjacque          #+#    #+#             */
-/*   Updated: 2020/12/22 19:13:32 by thjacque         ###   ########lyon.fr   */
+/*   Updated: 2021/01/04 17:37:15 by thjacque         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,13 +83,13 @@ t_map	check_map(t_map map, t_params *p)
 	while (map.map[++i])
 	{
 		j = 0;
-		while (map.map[i][j] != '0' && map.map[i][j])
+		while (map.map[i][j] == ' ' && map.map[i][j])
 			j++;
 		while (map.map[i][j])
 		{
-			if (map.map[i][j] == '0' && !check_zero(map, i, j, high))
+			if (map.map[i][j] != '1' && map.worldmap[i][j] != -1 && !check_zero(map, i, j, high))
 				ft_exit(1, "Invalid Map.", p, NULL);
-			else if (map.map[i][j] == '2' || map.map[i][j] == '3')
+			if (map.map[i][j] == '2' || map.map[i][j] == '3')
 				map = treat_sprite(map, i, j);
 			j++;
 		}

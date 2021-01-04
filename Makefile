@@ -1,4 +1,4 @@
-NAME = cube.out
+NAME = Cub3D
 
 LIBFT = libftprintf.a
 

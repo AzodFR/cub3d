@@ -6,7 +6,7 @@
 /*   By: thjacque <thjacque@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/14 10:10:32 by thjacque          #+#    #+#             */
-/*   Updated: 2021/01/04 15:10:16 by thjacque         ###   ########lyon.fr   */
+/*   Updated: 2021/01/04 18:47:11 by thjacque         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,8 +26,8 @@
 # define D 2
 # define SHIFT 257
 # define CTRL 256
-# define SPEED 0.13
-# define SENSIVITY 50
+# define SPEED 0.20
+# define SENSIVITY 30
 # define HUD 4
 
 typedef struct		s_params
@@ -62,6 +62,11 @@ typedef struct		s_display
 {
 	double			pos_x;
 	double			pos_y;
+	double			pos_z;
+	float			cam_z;
+	double			pitch;
+	int				p;
+	double			rowdist;
 	double			dir_x;
 	double			dir_y;
 	double			plane_x;

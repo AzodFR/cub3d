@@ -6,7 +6,7 @@
 /*   By: thjacque <thjacque@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/16 10:36:23 by thjacque          #+#    #+#             */
-/*   Updated: 2021/01/04 15:18:30 by thjacque         ###   ########lyon.fr   */
+/*   Updated: 2021/01/04 18:30:37 by thjacque         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,7 @@ int		gameloop(t_all *all)
 {
 	int		*array;
 	int		v;
+	char	*life;
 
 	all->main = mlx_new_image(all->mlx.ptr, all->p.win_x, all->p.win_y);
 	array = (int *)mlx_get_data_addr(all->main, &v, &v, &v);
@@ -52,6 +53,10 @@ int		gameloop(t_all *all)
 	if (all->key.hud)
 		mlx_put_image_to_window(all->mlx.ptr, all->mlx.win, all->life_txt,
 			lx(all->life), 0);
+	life = ft_strjoin("Vies: "," ");
+	life[6]= all->life + '0';
+	mlx_string_put(all->mlx.ptr, all->mlx.win, 500, 500, 2552552, life);
+	free(life);
 	mlx_destroy_image(all->mlx.ptr, all->main);
 	return (1);
 }

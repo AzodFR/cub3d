@@ -6,7 +6,7 @@
 /*   By: thjacque <thjacque@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/18 16:43:14 by thjacque          #+#    #+#             */
-/*   Updated: 2021/01/04 15:06:01 by thjacque         ###   ########lyon.fr   */
+/*   Updated: 2021/01/04 18:57:23 by thjacque         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,13 +28,10 @@ int		key_press(int keycode, t_all *a)
 		a->key.right = 1;
 	else if (keycode == LEFT)
 		a->key.left = 1;
-	else if (keycode == SHIFT && !a->crouch)
+	else if (keycode == CTRL)
+		a->d.pos_z = -200;
+	else if (keycode == SHIFT)
 		a->sprint = 0.1;
-	else if (keycode == CTRL && !a->sprint)
-	{
-		a->sprint = -0.1;
-		a->crouch = 100;
-	}
 	return (keycode);
 }
 
@@ -57,10 +54,7 @@ int		key_release(int keycode, t_all *a)
 	else if (keycode == SHIFT)
 		a->sprint = 0;
 	else if (keycode == CTRL)
-	{
-		a->sprint = 0;
-		a->crouch = 0;
-	}
+		a->d.pos_z = 0;
 	if (keycode == HUD)
 		a->key.hud = !a->key.hud;
 	return (keycode);

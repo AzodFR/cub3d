@@ -6,7 +6,7 @@
 /*   By: thjacque <thjacque@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/21 11:54:20 by thjacque          #+#    #+#             */
-/*   Updated: 2021/01/04 15:15:09 by thjacque         ###   ########lyon.fr   */
+/*   Updated: 2021/01/04 18:54:47 by thjacque         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,9 @@
 
 void			init_variables(t_display *d, t_params *p, int x)
 {
+	d->cam_z = (0.5 * p->win_y - d->pos_z);
+	d->p = (0.5 * p->win_y + d->pitch);
+	d->rowdist = d->cam_z / d->p;
 	d->camera_x = (2 * x / (double)p->win_x - 1);
 	d->raydir_x = d->dir_x + d->plane_x * d->camera_x;
 	d->raydir_y = d->dir_y + d->plane_y * d->camera_x;
@@ -69,6 +72,8 @@ t_display		init_display(t_map map)
 
 	d.pos_x = map.pos[0] + 0.5;
 	d.pos_y = map.pos[1] + 0.5;
+	d.pos_z = 0;
+	d.pitch = 0;
 	rota = 0;
 	if (map.p_facing == 'W')
 		rota = -1.57;
