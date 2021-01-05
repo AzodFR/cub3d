@@ -6,7 +6,7 @@
 /*   By: thjacque <thjacque@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/14 11:48:56 by thjacque          #+#    #+#             */
-/*   Updated: 2021/01/04 11:52:08 by thjacque         ###   ########lyon.fr   */
+/*   Updated: 2021/01/05 11:30:00 by thjacque         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@ t_params	init_params(void)
 	p.text_ea = NULL;
 	p.text_sprite1 = NULL;
 	p.text_sprite2 = NULL;
+	p.text_sprite3 = NULL;
 	p.map = ft_strdup("");
 	p.f[0] = 0;
 	p.f[1] = 0;
@@ -37,7 +38,7 @@ t_params	init_params(void)
 
 void		treat_line(char *line, t_params *p, int *n)
 {
-	if (*n >= 9)
+	if (*n >= 10)
 		set_map(n, line, p);
 	else if (line[0] == 'R' && (*n += 1))
 		set_resolution(line, p);
@@ -53,6 +54,8 @@ void		treat_line(char *line, t_params *p, int *n)
 		set_texture(line, p, 0);
 	else if (!ft_strncmp(line, "S2", 2) && (*n += 1))
 		set_texture(line, p, 5);
+	else if (!ft_strncmp(line, "S3", 2) && (*n += 1))
+		set_texture(line, p, 6);
 	else if (!ft_strncmp(line, "F ", 2) && (*n += 1))
 		set_rgb(line, p, 1, -1);
 	else if (!ft_strncmp(line, "C ", 2) && (*n += 1))
@@ -62,26 +65,8 @@ void		treat_line(char *line, t_params *p, int *n)
 
 void		check_params(t_params *p)
 {
-	int fd;
-
-	if ((fd = open(p->text_no, O_RDONLY)) < 0)
-		ft_exit(1, "Cannot found the north's texture.", p, NULL);
-	close(fd);
-	if ((fd = open(p->text_so, O_RDONLY)) < 0)
-		ft_exit(1, "Cannot found the south's texture.", p, NULL);
-	close(fd);
-	if ((fd = open(p->text_we, O_RDONLY)) < 0)
-		ft_exit(1, "Cannot found the west's texture.", p, NULL);
-	close(fd);
-	if ((fd = open(p->text_ea, O_RDONLY)) < 0)
-		ft_exit(1, "Cannot found the east's texture.", p, NULL);
-	close(fd);
-	if ((fd = open(p->text_sprite1, O_RDONLY)) < 0)
-		ft_exit(1, "Cannot found the sprite's texture.", p, NULL);
-	close(fd);
-	if ((fd = open(p->text_sprite2, O_RDONLY)) < 0)
-		ft_exit(1, "Cannot found the sprite's texture.", p, NULL);
-	close(fd);
+	check_walls(p);
+	check_sprites(p);
 	if (p->f[0] > 255 || p->f[1] > 255 || p->f[2] > 255)
 		ft_exit(1, "RGB not valid for the floor.", p, NULL);
 	if (p->c[0] > 255 || p->c[1] > 255 || p->c[2] > 255)

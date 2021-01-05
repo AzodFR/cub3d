@@ -6,7 +6,7 @@
 /*   By: thjacque <thjacque@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/22 17:12:02 by thjacque          #+#    #+#             */
-/*   Updated: 2020/12/22 17:33:15 by thjacque         ###   ########lyon.fr   */
+/*   Updated: 2021/01/05 12:54:50 by thjacque         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,9 @@
 
 int		get_type(t_all *all, t_display *d, int i)
 {
+	int		crouch;
+
+	crouch = (d->pitch + d->pos_z / d->transform_y);
 	d->spritex = all->map.sprite[i].x - d->pos_x + 0.5;
 	d->spritey = all->map.sprite[i].y - d->pos_y + 0.5;
 	d->invdet = 1.0 / (d->plane_x * d->dir_y - d->dir_x * d->plane_y);
@@ -24,15 +27,18 @@ int		get_type(t_all *all, t_display *d, int i)
 	d->spritescreen_x = (int)((all->p.win_x / 2) *
 		(1 + d->transform_x / d->transform_y));
 	d->spriteheight = abs((int)(all->p.win_y / (d->transform_y)));
-	d->drawstart_y = -d->spriteheight / 2 + all->p.win_y / 2;
+	d->drawstart_y = -d->spriteheight / 2 + all->p.win_y / 2 + crouch;
 	return (all->map.sprite[i].type);
 }
 
 void	check_start_end(t_all *all, t_display *d)
 {
+	int		crouch;
+
+	crouch = (d->pitch + d->pos_z / d->transform_y);
 	if (d->drawstart_y < 0)
 		d->drawstart_y = 0;
-	d->drawend_y = d->spriteheight / 2 + all->p.win_y / 2;
+	d->drawend_y = d->spriteheight / 2 + all->p.win_y / 2 + crouch;
 	if (d->drawend_y >= all->p.win_y)
 		d->drawend_y = all->p.win_y - 1;
 	d->spritewidth = abs((int)(all->p.win_y / (d->transform_y)));
@@ -48,7 +54,9 @@ void	draw_sprite(t_all *all, t_display *d, int type, int *array)
 {
 	int		dc;
 	int		y;
+	int		crouc;
 
+	crouc = (d->pitch + d->pos_z / d->transform_y);
 	d->sprite_tex_x = (int)(256 * (d->stripe - (-d->spritewidth / 2 +
 	d->spritescreen_x)) * all->text[3 + type].info[1] / d->spritewidth) / 256;
 	y = d->drawstart_y;
@@ -57,7 +65,7 @@ void	draw_sprite(t_all *all, t_display *d, int type, int *array)
 	{
 		while (y < d->drawend_y)
 		{
-			dc = y * 256 - all->p.win_y * 128 + d->spriteheight * 128;
+			dc = (y - crouc) * 256 - all->p.win_y * 128 + d->spriteheight * 128;
 			d->sprite_tex_y = ((dc * all->text[3 + type].info[2]) /
 					d->spriteheight) / 256;
 			d->sprite_color = all->text[3 + type].array

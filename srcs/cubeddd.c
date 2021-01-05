@@ -6,7 +6,7 @@
 /*   By: thjacque <thjacque@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/16 10:36:23 by thjacque          #+#    #+#             */
-/*   Updated: 2021/01/04 18:30:37 by thjacque         ###   ########lyon.fr   */
+/*   Updated: 2021/01/05 12:40:42 by thjacque         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,26 +38,32 @@ int		closed(t_all *a)
 	return (1);
 }
 
+int		can_loop(t_all *all)
+{
+	return ((all->map.win == 0 ||
+		(all->keys < all->map.win && all->map.win > 0)) &&
+			all->life > 0);
+}
+
 int		gameloop(t_all *all)
 {
 	int		*array;
 	int		v;
-	char	*life;
 
-	all->main = mlx_new_image(all->mlx.ptr, all->p.win_x, all->p.win_y);
-	array = (int *)mlx_get_data_addr(all->main, &v, &v, &v);
-	check_move(all);
-	check_trap(all);
-	print_img(&(all->d), &(all->p), all, array);
-	mlx_put_image_to_window(all->mlx.ptr, all->mlx.win, all->main, 0, 0);
-	if (all->key.hud)
-		mlx_put_image_to_window(all->mlx.ptr, all->mlx.win, all->life_txt,
-			lx(all->life), 0);
-	life = ft_strjoin("Vies: "," ");
-	life[6]= all->life + '0';
-	mlx_string_put(all->mlx.ptr, all->mlx.win, 500, 500, 2552552, life);
-	free(life);
-	mlx_destroy_image(all->mlx.ptr, all->main);
+	if (can_loop(all))
+	{
+		all->main = mlx_new_image(all->mlx.ptr, all->p.win_x, all->p.win_y);
+		array = (int *)mlx_get_data_addr(all->main, &v, &v, &v);
+		check_move(all);
+		check_trap(all);
+		print_img(&(all->d), &(all->p), all, array);
+		mlx_put_image_to_window(all->mlx.ptr, all->mlx.win, all->main, 0, 0);
+		if (all->key.hud)
+			render_hud(all);
+		mlx_destroy_image(all->mlx.ptr, all->main);
+	}
+	else
+		check_state(all);
 	return (1);
 }
 

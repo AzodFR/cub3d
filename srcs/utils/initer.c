@@ -6,7 +6,7 @@
 /*   By: thjacque <thjacque@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/21 11:54:20 by thjacque          #+#    #+#             */
-/*   Updated: 2021/01/04 18:54:47 by thjacque         ###   ########lyon.fr   */
+/*   Updated: 2021/01/05 10:48:23 by thjacque         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ t_all			init_texture(t_params p, t_all a, int i)
 	int				h;
 	int				sizeline;
 
-	while (++i < 6)
+	while (++i < 7)
 	{
 		t.ptr = mlx_xpm_file_to_image(a.mlx.ptr, get_path(i, p), &w, &h);
 		t.info[1] = w;
@@ -58,7 +58,7 @@ t_all			init_key(t_all all)
 	all.key.right = 0;
 	all.key.left = 0;
 	all.sprint = 0;
-	all.crouch = 0;
+	all.keys = 0;
 	all.life = 3;
 	return (all);
 }
@@ -74,13 +74,7 @@ t_display		init_display(t_map map)
 	d.pos_y = map.pos[1] + 0.5;
 	d.pos_z = 0;
 	d.pitch = 0;
-	rota = 0;
-	if (map.p_facing == 'W')
-		rota = -1.57;
-	if (map.p_facing == 'S')
-		rota = -3.14;
-	if (map.p_facing == 'E')
-		rota = -4.71;
+	rota = get_rotation(map.p_facing);
 	d.dir_x = -1;
 	d.dir_y = 0;
 	oldir_x = d.dir_x;

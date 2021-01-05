@@ -6,7 +6,7 @@
 /*   By: thjacque <thjacque@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/21 13:39:34 by thjacque          #+#    #+#             */
-/*   Updated: 2021/01/04 17:37:15 by thjacque         ###   ########lyon.fr   */
+/*   Updated: 2021/01/05 11:33:47 by thjacque         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,10 +60,15 @@ t_map	get_high(t_map map, int *j)
 	high = -1;
 	i = -1;
 	map.nbsprite = 0;
+	map.win = 0;
 	while (map.map[++high] && (i = -1))
 		while (map.map[high][++i])
-			if (map.map[high][i] == '2' || map.map[high][i] == '3')
+		{
+			if (is_sprite(map.map[high][i]))
 				map.nbsprite += 1;
+			if (map.map[high][i] == '5')
+				map.win += 1;
+		}
 	*j = high;
 	return (map);
 }
@@ -80,16 +85,16 @@ t_map	check_map(t_map map, t_params *p)
 		ft_exit(1, "Malloc error.", p, NULL);
 	i = -1;
 	map.nbsprite = 0;
-	while (map.map[++i])
+	while (map.map[++i] && !(j = 0))
 	{
-		j = 0;
 		while (map.map[i][j] == ' ' && map.map[i][j])
 			j++;
 		while (map.map[i][j])
 		{
-			if (map.map[i][j] != '1' && map.worldmap[i][j] != -1 && !check_zero(map, i, j, high))
+			if (map.map[i][j] != '1' && map.worldmap[i][j] != -1 &&
+			!check_zero(map, i, j, high))
 				ft_exit(1, "Invalid Map.", p, NULL);
-			if (map.map[i][j] == '2' || map.map[i][j] == '3')
+			if (is_sprite(map.map[i][j]))
 				map = treat_sprite(map, i, j);
 			j++;
 		}

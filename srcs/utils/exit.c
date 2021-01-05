@@ -6,7 +6,7 @@
 /*   By: thjacque <thjacque@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/14 11:55:36 by thjacque          #+#    #+#             */
-/*   Updated: 2021/01/04 15:59:46 by thjacque         ###   ########lyon.fr   */
+/*   Updated: 2021/01/05 10:14:31 by thjacque         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,8 @@ void	free_params(t_params *p)
 		free(p->text_sprite1);
 	if (p->text_sprite2 != NULL && ft_isprint(p->text_sprite2[0]))
 		free(p->text_sprite2);
+	if (p->text_sprite3 != NULL && ft_isprint(p->text_sprite3[0]))
+		free(p->text_sprite3);
 }
 
 void	free_all(t_all *a)

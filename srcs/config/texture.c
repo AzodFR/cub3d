@@ -6,7 +6,7 @@
 /*   By: thjacque <thjacque@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/14 14:03:33 by thjacque          #+#    #+#             */
-/*   Updated: 2020/12/22 17:00:40 by thjacque         ###   ########lyon.fr   */
+/*   Updated: 2021/01/05 10:44:51 by thjacque         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,8 @@ void	set_texture(char *line, t_params *p, int face)
 		p->text_sprite1 = ft_strdup(path);
 	else if (face == 5 && !p->text_sprite2)
 		p->text_sprite2 = ft_strdup(path);
+	else if (face == 6 && !p->text_sprite3)
+		p->text_sprite3 = ft_strdup(path);
 	else if (face == 1 && !p->text_no)
 		p->text_no = ft_strdup(path);
 	else if (face == 2 && !p->text_so)

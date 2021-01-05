@@ -16,12 +16,14 @@ FILES = cubeddd.c \
 		config/cub_parser.c config/resolution.c \
 		config/texture.c config/map.c \
 		config/check_map.c config/treat_sprite.c \
+		config/check_path.c \
 		engine/controls/key_control.c \
 		engine/render/rendering.c engine/render/drawer.c \
 		engine/controls/move_player.c engine/controls/move_camera.c \
-		engine/render/sprite_init.c engine/player_manager.c \
+		engine/render/sprite_init.c  engine/render/win_died.c \
+		engine/player_manager.c \
 		utils/initer.c utils/exit.c utils/save.c utils/paths.c \
-		utils/sort_sprite.c
+		utils/sort_sprite.c utils/orientation.c
 
 RM = rm -f
 

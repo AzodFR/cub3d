@@ -6,7 +6,7 @@
 /*   By: thjacque <thjacque@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/14 10:10:32 by thjacque          #+#    #+#             */
-/*   Updated: 2021/01/04 18:47:11 by thjacque         ###   ########lyon.fr   */
+/*   Updated: 2021/01/05 12:40:55 by thjacque         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,7 @@ typedef struct		s_params
 	char			*text_ea;
 	char			*text_sprite1;
 	char			*text_sprite2;
+	char			*text_sprite3;
 	char			*map;
 	int				f[3];
 	int				c[3];
@@ -143,6 +144,7 @@ typedef struct		s_map
 	int				**worldmap;
 	t_sprite		*sprite;
 	int				nbsprite;
+	int				win;
 }					t_map;
 typedef struct		s_bmp
 {
@@ -171,7 +173,7 @@ typedef struct		s_all
 	void			*main;
 	void			*life_txt;
 	double			sprint;
-	double			crouch;
+	int				keys;
 	int				life;
 }					t_all;
 void				ft_exit(int status, char *reason, t_params *p, t_all *a);
@@ -183,6 +185,8 @@ void				free_line_exit(char **l, int er, char *r, t_params *p);
 t_map				get_map(t_params p);
 t_all				parser(char *file, int ret);
 t_map				check_map(t_map map, t_params *p);
+void				check_sprites(t_params *p);
+void				check_walls(t_params *p);
 /*
 ** UTILS
 */
@@ -192,9 +196,11 @@ int					is_wall(int i);
 void				check_trap(t_all *a);
 int					lx(int life);
 t_sprite			*sort_sprite(t_sprite *sprite, int max, t_all *all);
+int					is_sprite(char c);
 /*
 ** INITER
 */
+double				get_rotation(char c);
 t_map				treat_sprite(t_map map, int i, int j);
 void				init_variables(t_display *d, t_params *p, int x);
 t_all				init_texture(t_params p, t_all a, int i);
@@ -226,4 +232,6 @@ void				check_start_end(t_all *all, t_display *d);
 void				print_sprite(int *array, t_all *all, t_display *d);
 void				draw_sprite(t_all *all, t_display *d, int type, int *array);
 void				print_life(int	*array, t_all *all, int x);
+void				check_state(t_all *all);
+void				render_hud(t_all *all);
 #endif

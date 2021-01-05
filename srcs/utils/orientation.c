@@ -1,24 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   treat_sprite.c                                     :+:      :+:    :+:   */
+/*   orientation.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: thjacque <thjacque@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/12/22 16:58:55 by thjacque          #+#    #+#             */
-/*   Updated: 2021/01/05 10:24:28 by thjacque         ###   ########lyon.fr   */
+/*   Created: 2021/01/05 10:46:27 by thjacque          #+#    #+#             */
+/*   Updated: 2021/01/05 10:49:42 by thjacque         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cubeddd.h"
 
-t_map	treat_sprite(t_map map, int i, int j)
+double		get_rotation(char c)
 {
-	map.sprite[map.nbsprite].x = i;
-	map.sprite[map.nbsprite].y = j;
-	map.sprite[map.nbsprite].type = map.map[i][j] - '0' - 1;
-	if (map.sprite[map.nbsprite].type > 2)
-		--map.sprite[map.nbsprite].type;
-	map.nbsprite += 1;
-	return (map);
+	if (c == 'W')
+		return (-1.57);
+	if (c == 'S')
+		return (-3.14);
+	if (c == 'E')
+		return (-4.71);
+	return (0);
 }
