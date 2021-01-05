@@ -1,5 +1,5 @@
 R  1280 920       
-SO txt/wolf/storm.xpm
+SO   txt/wolf/storm.xpm
 F 102,51,0
 NO txt/wolf/storm.xpm
 WE txt/wolf/wpgreen.xpm
@@ -17,7 +17,7 @@ EA txt/wolf/wpgreen.xpm
 101     121
 131     121
 1011111110111111
-1200004000333331
+1002004000333331
 1111111110111111
 1111111110111111
 1111115045111111

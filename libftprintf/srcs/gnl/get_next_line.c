@@ -6,7 +6,7 @@
 /*   By: thjacque <thjacque@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/26 16:27:10 by thjacque          #+#    #+#             */
-/*   Updated: 2020/12/14 13:35:18 by thjacque         ###   ########lyon.fr   */
+/*   Updated: 2021/01/05 15:28:51 by thjacque         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,6 +76,7 @@ char	*get_actual_line(char *buffer, char **rest, int fd)
 {
 	int		i;
 	char	*temp;
+
 	while ((i = read(fd, buffer, BUFFER_SIZE)) != 0)
 	{
 		if (i < 0)

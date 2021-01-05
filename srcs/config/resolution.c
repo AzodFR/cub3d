@@ -6,7 +6,7 @@
 /*   By: thjacque <thjacque@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/14 12:04:03 by thjacque          #+#    #+#             */
-/*   Updated: 2021/01/05 14:51:35 by thjacque         ###   ########lyon.fr   */
+/*   Updated: 2021/01/05 15:13:00 by thjacque         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ void	set_resolution(char *line, t_params *p)
 	i = 1;
 	if (p->win_x > 0 || p->win_y > 0)
 		ft_exit(1, "Duplicate resolution section.", p, NULL);
-	while ((line[i] >= 9 && line[i] <= 13) || line[i] == ' ')
+	while (line[i] == ' ')
 		i++;
 	while (ft_isdigit(line[i]))
 		p->win_x = (p->win_x * 10) + (line[i++] - '0');

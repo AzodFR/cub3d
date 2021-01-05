@@ -6,7 +6,7 @@
 /*   By: thjacque <thjacque@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/14 14:03:33 by thjacque          #+#    #+#             */
-/*   Updated: 2021/01/05 10:44:51 by thjacque         ###   ########lyon.fr   */
+/*   Updated: 2021/01/05 15:11:29 by thjacque         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,13 +21,12 @@ void	free_exit(char *s, t_params *p, char *text)
 void	set_texture(char *line, t_params *p, int face)
 {
 	char	*path;
-	char	*tmp;
 
 	line[0] = ' ';
 	line[1] = ' ';
-	tmp = ft_strtrim(line, " ");
-	path = ft_strtrim(tmp, "\t");
-	free(tmp);
+	path = ft_strtrim(line, " ");
+	if (path[0] == '\t')
+		free_exit(path, p, "No tab accepted");
 	if (face == 0 && !p->text_sprite1)
 		p->text_sprite1 = ft_strdup(path);
 	else if (face == 5 && !p->text_sprite2)

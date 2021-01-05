@@ -6,7 +6,7 @@
 /*   By: thjacque <thjacque@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/21 11:12:12 by thjacque          #+#    #+#             */
-/*   Updated: 2021/01/05 13:54:27 by thjacque         ###   ########lyon.fr   */
+/*   Updated: 2021/01/05 15:24:49 by thjacque         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,4 +73,6 @@ void	print_sprite(int *array, t_all *all, t_display *d)
 		while (d->stripe < d->drawend_x)
 			draw_sprite(all, d, type, array);
 	}
+	if (all->p.screen == 1)
+		ft_init_bmp(all, all->p.win_x, all->p.win_y, array);
 }

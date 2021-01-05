@@ -6,7 +6,7 @@
 /*   By: thjacque <thjacque@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/16 10:36:23 by thjacque          #+#    #+#             */
-/*   Updated: 2021/01/05 14:26:02 by thjacque         ###   ########lyon.fr   */
+/*   Updated: 2021/01/05 15:33:50 by thjacque         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,15 @@ int		gameloop(t_all *all)
 	return (1);
 }
 
+t_all	screen_av(char *av, t_all all)
+{
+	if (!ft_strncmp(av, "--save", 7))
+		all.p.screen = 1;
+	else
+		ft_exit(1, "Wrong arguments.", &(all.p), &all);
+	return (all);
+}
+
 int		main(int ac, char **av)
 {
 	t_all		all;
@@ -56,13 +65,13 @@ int		main(int ac, char **av)
 	else
 	{
 		all = parser(av[1], 0);
-		if (ac == 3 && !ft_strncmp(av[2], "--save", 7))
-			all.p.screen = 1;
+		if (ac == 3)
+			all = screen_av(av[2], all);
 		all = init_all(all);
 		if (!all.p.screen)
 		{
 			all.mlx.win = mlx_new_window(all.mlx.ptr,
-					all.p.win_x, all.p.win_y, av[1]);
+					all.p.win_x, all.p.win_y, "Cub3D");
 			mlx_hook(all.mlx.win, 02, 1L << 0, key_press, &all);
 			mlx_hook(all.mlx.win, 03, 1L << 1, key_release, &all);
 			mlx_hook(all.mlx.win, 17, 1L << 0, closed, &all);

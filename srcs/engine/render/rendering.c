@@ -6,7 +6,7 @@
 /*   By: thjacque <thjacque@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/18 16:57:09 by thjacque          #+#    #+#             */
-/*   Updated: 2021/01/05 10:49:01 by thjacque         ###   ########lyon.fr   */
+/*   Updated: 2021/01/05 15:24:18 by thjacque         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,6 +118,4 @@ void	print_img(t_display *d, t_params *p, t_all *all, int *array)
 	}
 	all->map.sprite = sort_sprite(all->map.sprite, all->map.nbsprite, all);
 	print_sprite(array, all, d);
-	if (all->p.screen == 1)
-		ft_init_bmp(all, all->p.win_x, all->p.win_y, array);
 }
