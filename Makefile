@@ -47,9 +47,13 @@ save: all
 	@clear
 	@./$(NAME) map.cub --save
 
-main: all
+tuto: all
 	@clear
-	@./$(NAME) map.cub
+	@./$(NAME) tuto.cub
+
+maze: all
+	@clear
+	@./$(NAME) maze.cub
 
 clean:
 	@make clean -C libftprintf/

@@ -6,31 +6,11 @@
 /*   By: thjacque <thjacque@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/16 10:36:23 by thjacque          #+#    #+#             */
-/*   Updated: 2021/01/05 12:40:42 by thjacque         ###   ########lyon.fr   */
+/*   Updated: 2021/01/05 14:26:02 by thjacque         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cubeddd.h"
-
-void	debug(t_params p, t_map m)
-{
-	int		i;
-
-	i = -1;
-	dprintf(1, "Screen: %d\n", p.screen);
-	dprintf(1, "Resolution |%d x %d|\n", p.win_x, p.win_y);
-	dprintf(1, "NO |%s|\n", p.text_no);
-	dprintf(1, "SO |%s|\n", p.text_so);
-	dprintf(1, "WE |%s|\n", p.text_we);
-	dprintf(1, "EA |%s|\n", p.text_ea);
-	dprintf(1, "SPRITE1 |%s|\n", p.text_sprite1);
-	dprintf(1, "SPRITE2 |%s|\n", p.text_sprite2);
-	dprintf(1, "Floor |%d - %d - %d|\n", p.f[0], p.f[1], p.f[2]);
-	dprintf(1, "Ceil |%d - %d - %d|\n", p.c[0], p.c[1], p.c[2]);
-	dprintf(1, "Map:\n");
-	while (m.map[++i])
-		dprintf(1, "%s|%d|\n", m.map[i], (int)ft_strlen(m.map[i]));
-}
 
 int		closed(t_all *a)
 {
@@ -78,7 +58,6 @@ int		main(int ac, char **av)
 		all = parser(av[1], 0);
 		if (ac == 3 && !ft_strncmp(av[2], "--save", 7))
 			all.p.screen = 1;
-		debug(all.p, all.map);
 		all = init_all(all);
 		if (!all.p.screen)
 		{

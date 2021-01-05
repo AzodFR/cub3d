@@ -6,7 +6,7 @@
 /*   By: thjacque <thjacque@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/22 17:12:02 by thjacque          #+#    #+#             */
-/*   Updated: 2021/01/05 14:22:52 by thjacque         ###   ########lyon.fr   */
+/*   Updated: 2021/01/05 14:36:50 by thjacque         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ int		get_type(t_all *all, t_display *d, int i)
 	d->spritescreen_x = (int)((all->p.win_x / 2) *
 		(1 + d->transform_x / d->transform_y));
 	d->spriteheight = abs((int)(all->p.win_y / (d->transform_y)));
-	d->drawstart_y = -d->spriteheight / 2 + all->p.win_y / 2 ;
+	d->drawstart_y = -d->spriteheight / 2 + all->p.win_y / 2;
 	return (all->map.sprite[i].type);
 }
 

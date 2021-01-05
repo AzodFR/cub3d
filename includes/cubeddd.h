@@ -6,7 +6,7 @@
 /*   By: thjacque <thjacque@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/14 10:10:32 by thjacque          #+#    #+#             */
-/*   Updated: 2021/01/05 14:00:39 by thjacque         ###   ########lyon.fr   */
+/*   Updated: 2021/01/05 14:37:17 by thjacque         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@
 # define LEFT 123
 # define RIGHT 124
 # define UP 126
-#define DOWN 125
+# define DOWN 125
 # define W 13
 # define A 0
 # define S 1
@@ -32,6 +32,9 @@
 # define SENSIVITY 30
 # define HUD 4
 
+/*
+** STRUCTURE FOR PARAMETERS
+*/
 typedef struct		s_params
 {
 	int				win_x;
@@ -48,11 +51,17 @@ typedef struct		s_params
 	int				c[3];
 	int				screen;
 }					t_params;
+/*
+** STRUCTURE FOR MLX
+*/
 typedef struct		s_mlx
 {
 	void			*ptr;
 	void			*win;
 }					t_mlx;
+/*
+** STRUCTURE FOR IMAGES (DESTRUCTIBLE)
+*/
 typedef struct		s_img
 {
 	void			*img;
@@ -61,6 +70,9 @@ typedef struct		s_img
 	int				pos_x;
 	int				pos_y;
 }					t_img;
+/*
+** STRUCTURE FOR ALL THE RENDERING
+*/
 typedef struct		s_display
 {
 	double			pos_x;
@@ -115,12 +127,18 @@ typedef struct		s_display
 	int				sprite_tex_y;
 	double			sprite_color;
 }					t_display;
+/*
+** STRUCTURE FOR TEXTURES
+*/
 typedef struct		s_texture
 {
 	void			*ptr;
 	int				*array;
 	int				info[4];
 }					t_texture;
+/*
+** STRUCTURE FOR ACTIVE KEYS
+*/
 typedef struct		s_key
 {
 	int				w;
@@ -131,12 +149,18 @@ typedef struct		s_key
 	int				right;
 	int				left;
 }					t_key;
+/*
+** STRUCTURE FOR SPRITES
+*/
 typedef struct		s_sprite
 {
 	int				x;
 	int				y;
 	int				type;
 }					t_sprite;
+/*
+** STRUCTURE FOR MAP PARAMS
+*/
 typedef struct		s_map
 {
 	char			p_facing;
@@ -148,6 +172,9 @@ typedef struct		s_map
 	int				nbsprite;
 	int				win;
 }					t_map;
+/*
+** STRUCTURE FOR BMP SAVING
+*/
 typedef struct		s_bmp
 {
 	char		header[54];
@@ -162,6 +189,9 @@ typedef struct		s_bmp
 	int			header_s;
 	int			biplanes;
 }					t_bmp;
+/*
+** STRUCTURE FOR EVERY OTHER STRUCT
+*/
 typedef struct		s_all
 {
 	t_params		p;
@@ -178,27 +208,40 @@ typedef struct		s_all
 	int				keys;
 	int				life;
 }					t_all;
-void				ft_exit(int status, char *reason, t_params *p, t_all *a);
-void				set_resolution(char *line, t_params *p);
-void				set_texture(char *line, t_params *p, int face);
-void				set_rgb(char *line, t_params *p, int floor, int i);
-void				set_map(int *n, char *line, t_params *p);
+
 void				free_line_exit(char **l, int er, char *r, t_params *p);
-t_map				get_map(t_params p);
 t_all				parser(char *file, int ret);
+
+/*
+** SETTER
+*/
+void				set_rgb(char *line, t_params *p, int floor, int i);
+void				set_texture(char *line, t_params *p, int face);
+void				set_map(int *n, char *line, t_params *p);
+void				set_resolution(char *line, t_params *p);
+/*
+** CHECKER
+*/
 t_map				check_map(t_map map, t_params *p);
 void				check_sprites(t_params *p);
 void				check_walls(t_params *p);
+void				check_state(t_all *all);
+void				check_trap(t_all *a);
+/*
+** GETTER
+*/
+t_map				get_map(t_params p);
+char				*get_path(int i, t_params p);
+int					get_type(t_all *all, t_display *d, int i);
 /*
 ** UTILS
 */
-void				ft_init_bmp(t_all *a, int width, int height, int *array);
-char				*get_path(int i, t_params p);
-int					is_wall(int i);
-void				check_trap(t_all *a);
-int					lx(int life);
 t_sprite			*sort_sprite(t_sprite *sprite, int max, t_all *all);
+void				ft_init_bmp(t_all *a, int width, int height, int *array);
+void				ft_exit(int status, char *reason, t_params *p, t_all *a);
 int					is_sprite(char c);
+int					is_wall(int i);
+int					lx(int life);
 /*
 ** INITER
 */
@@ -221,19 +264,16 @@ void				move_right(t_all *a);
 void				move_left(t_all *a);
 void				turn_right(t_all *a);
 void				turn_left(t_all *a);
-
 /*
 ** ENGINE
 */
-void				print_ceil(int *array, t_display *d, t_params *p, int x);
-void				print_floor(int *array, t_display *d, t_params *p, int x);
-void				print_wall(int *array, t_all *all, int x, int or);
-void				print_img(t_display *d, t_params *p, t_all *a, int *ar);
-int					get_type(t_all *all, t_display *d, int i);
-void				check_start_end(t_all *all, t_display *d);
-void				print_sprite(int *array, t_all *all, t_display *d);
 void				draw_sprite(t_all *all, t_display *d, int type, int *array);
+void				print_floor(int *array, t_display *d, t_params *p, int x);
+void				print_ceil(int *array, t_display *d, t_params *p, int x);
+void				print_img(t_display *d, t_params *p, t_all *a, int *ar);
+void				print_sprite(int *array, t_all *all, t_display *d);
+void				print_wall(int *array, t_all *all, int x, int or);
 void				print_life(int	*array, t_all *all, int x);
-void				check_state(t_all *all);
+void				check_start_end(t_all *all, t_display *d);
 void				render_hud(t_all *all);
 #endif
