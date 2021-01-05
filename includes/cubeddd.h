@@ -6,7 +6,7 @@
 /*   By: thjacque <thjacque@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/14 10:10:32 by thjacque          #+#    #+#             */
-/*   Updated: 2021/01/05 12:40:55 by thjacque         ###   ########lyon.fr   */
+/*   Updated: 2021/01/05 14:00:39 by thjacque         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,8 @@
 # define ESC 53
 # define LEFT 123
 # define RIGHT 124
+# define UP 126
+#define DOWN 125
 # define W 13
 # define A 0
 # define S 1

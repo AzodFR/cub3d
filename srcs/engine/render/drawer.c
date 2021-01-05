@@ -6,7 +6,7 @@
 /*   By: thjacque <thjacque@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/21 11:12:12 by thjacque          #+#    #+#             */
-/*   Updated: 2021/01/04 14:18:33 by thjacque         ###   ########lyon.fr   */
+/*   Updated: 2021/01/05 13:54:27 by thjacque         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,10 @@ void	print_wall(int *array, t_all *all, int x, int or)
 		d->tex_pos += d->step;
 		color = all->text[or].array[all->text[or].info[2] *
 		d->tex_y + d->tex_x];
+		if (d->lineheight < 150)
+			color = (color >> 1) & 8355711;
+		if (d->lineheight < 100)
+			color = (color >> 1) & 7355000;
 		array[y * p->win_x + x] = color;
 		y++;
 	}

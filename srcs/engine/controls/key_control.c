@@ -6,7 +6,7 @@
 /*   By: thjacque <thjacque@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/18 16:43:14 by thjacque          #+#    #+#             */
-/*   Updated: 2021/01/04 18:57:23 by thjacque         ###   ########lyon.fr   */
+/*   Updated: 2021/01/05 14:23:18 by thjacque         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ int		key_press(int keycode, t_all *a)
 	else if (keycode == LEFT)
 		a->key.left = 1;
 	else if (keycode == CTRL)
-		a->d.pos_z = -200;
+		a->d.pos_z = -50;
 	else if (keycode == SHIFT)
 		a->sprint = 0.1;
 	return (keycode);
