@@ -4,9 +4,9 @@
 
 ### Render
 
-| Raycast | Sprite | Max Resolution |
-|----|----|----|
-| OK | OK | OK |
+| Raycast | Sprite | Max Resolution | Oriented Textures |
+|----|----|----|----|
+| OK | OK | OK | OK |
 
 ### Control
 
