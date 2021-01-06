@@ -45,7 +45,7 @@ all: $(NAME)
 
 save: all
 	@clear
-	@./$(NAME) map.cub --save
+	@./$(NAME) maze.cub --save
 
 tuto: all
 	@clear
